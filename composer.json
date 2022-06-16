@@ -1,0 +1,21 @@
+{
+    "name": "mrkwp/nolan-group",
+    "description": "Nolan Group Core Functions",
+    "type": "project",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "MRK WP",
+            "email": "helpdesk@mrkwp.com"
+        }
+    ],
+    "config": {
+        "vendor-dir": "lib"
+    },
+    "autoload": {
+        "psr-4": {"Nolan_Group\\": "./core"}
+    },
+    "require": {
+        "league/csv": "^9.8"
+    }
+}

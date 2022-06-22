@@ -14,6 +14,9 @@ final class Init
 	{
 		return [
 			PostTypes\Products::class,
+			PostTypes\Brands::class,
+			PostTypes\Guides::class,
+			PostTypes\CaseStudies::class,
 			Taxonomies\ProductCategory::class,
 		];
 	}

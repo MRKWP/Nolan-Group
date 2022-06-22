@@ -14,6 +14,7 @@ final class Init
 	{
 		return [
 			PostTypes\Products::class,
+			Taxonomies\ProductCategory::class,
 		];
 	}
 

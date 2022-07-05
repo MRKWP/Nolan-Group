@@ -17,7 +17,7 @@ class Products {
      */
     public function register() {
         add_action( 'init', [$this, 'cpt_init'], 9);
-        add_action( 'init', [$this, 'acf_fields'], 10);
+        //add_action( 'init', [$this, 'acf_fields'], 10);
     }
 
     /**
@@ -67,7 +67,7 @@ class Products {
             'label'                 => __( 'Product', 'nolan-group' ),
             'description'           => __( 'Product Items for Nolan Group', 'nolan-group' ),
             'labels'                => $labels,
-            'supports'              => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt' ),
+            'supports'              => array( 'title', 'thumbnail', 'revisions' ),
             'hierarchical'          => false,
             'public'                => true,
             'show_ui'               => true,

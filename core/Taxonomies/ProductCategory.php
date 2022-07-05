@@ -61,6 +61,6 @@ class ProductCategory {
             'rest_controller_class' => 'WP_REST_Terms_Controller',
         );
         
-        register_taxonomy('product-category', array('product'), $args);
+        register_taxonomy('product-category', array('product','brand', 'brochure', 'guide'), $args);
     }
 }

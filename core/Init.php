@@ -17,6 +17,7 @@ final class Init
 			PostTypes\Brands::class,
 			PostTypes\Guides::class,
 			PostTypes\CaseStudies::class,
+			PostTypes\Brochures::class,
 			Taxonomies\ProductCategory::class,
 		];
 	}

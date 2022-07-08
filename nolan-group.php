@@ -7,7 +7,7 @@
  * Author URI:      https://www.mrkwp.com
  * Text Domain:     mrkwp-website
  * Domain Path:     /languages
- * Version:         1.0.6
+ * Version:         1.0.7
  *
  * @package nolan-group
  */

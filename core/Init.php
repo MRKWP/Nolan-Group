@@ -18,6 +18,7 @@ final class Init
 			PostTypes\Guides::class,
 			PostTypes\CaseStudies::class,
 			PostTypes\Brochures::class,
+			Filters\Links::class,
 			Taxonomies\ProductCategory::class,
 		];
 	}

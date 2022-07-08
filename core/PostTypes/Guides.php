@@ -66,7 +66,7 @@ class Guides {
             'label'                 => __( 'Guide', 'nolan-group' ),
             'description'           => __( 'Guide Items for Nolan Group', 'nolan-group' ),
             'labels'                => $labels,
-            'supports'              => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields', 'excerpt' ),
+            'supports'              => array( 'title', 'thumbnail', 'revisions' ),
             'hierarchical'          => false,
             'public'                => true,
             'show_ui'               => true,

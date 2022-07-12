@@ -26,12 +26,12 @@ class ProductCategory {
     public function create_taxonomy() {
         $args = array(
             'hierarchical'      => true,
-            'public'            => false,
+            'public'            => true,
             'show_in_nav_menus' => true,
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => false,
+            'rewrite'           => true,
             'capabilities'      => array(
                 'manage_terms' => 'edit_posts',
                 'edit_terms'   => 'edit_posts',
@@ -61,6 +61,6 @@ class ProductCategory {
             'rest_controller_class' => 'WP_REST_Terms_Controller',
         );
         
-        register_taxonomy('product-category', array('product','brand', 'brochure', 'guide'), $args);
+        register_taxonomy('product-category', array('product','nolan-product','brand', 'brochure', 'guide'), $args);
     }
 }

@@ -84,7 +84,7 @@ class Products {
             'capability_type'       => 'post',
             'show_in_rest'          => true,
         );
-        register_post_type( 'product', $args );
+        register_post_type( 'nolan-product', $args );
 
     }
 

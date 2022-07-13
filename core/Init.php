@@ -19,6 +19,7 @@ final class Init
 			PostTypes\CaseStudies::class,
 			PostTypes\Brochures::class,
 			Filters\Links::class,
+			Filters\Breadcrumbs ::class,
 			Taxonomies\ProductCategory::class,
 		];
 	}

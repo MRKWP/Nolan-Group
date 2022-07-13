@@ -11,6 +11,10 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.0
+- Added Product Carousel and filter by brands, number of items and product category
+- Implement gulp to compile scss to css
+
 ### 1.0.9
 - Added new filters for brands and paginations
 - added new actions for post types and product taxonomies

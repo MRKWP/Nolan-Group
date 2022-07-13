@@ -14,13 +14,13 @@ class Breadcrumbs
 	}
     
     /**
-     * Brochure breadcrumb filter to 'resourcest text in the breadcrumb 
+     * Brochure breadcrumb filter show Resources Page Link on
+     * Breadcrumb archive
      *
-     * @param string  $url  Post Permalink.
-     * @return string $url  Post Permalink.
+     * @param array  $links Breadcrumb Array links
      */
 
-    public function change_brochure_breadcrumb_to_resources($links) {
+    public function change_brochure_breadcrumb_to_resources( $links ) {
     
         $post_type = get_post_type();
 
@@ -42,7 +42,7 @@ class Breadcrumbs
                 array_splice($links, 1, -3, $breadcrumb);
 
             }
-                
+            
         }
         return $links;
 

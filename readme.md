@@ -11,6 +11,10 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.0
+- Added Product Carousel and filter by brands, number of items and product category
+- Implement gulp to compile scss to css
+
 ### 1.0.9
 - Added new filters for brands and paginations
 - added new actions for post types and product taxonomies
@@ -25,3 +29,12 @@ Nolan Group Library for core functions on the site by MRKWP.com
 ### 1.0.6
 - Original commit to add in the code.
 - not sure on the other versions.
+
+## Build Process
+Uses Gulp Version 4.
+
+### Steps to run
+- Ensure you have Node & NPM installed.
+- Install the **gulp-cli** globally using `npm install gulp-cli -g` in your terminal. Use `sudo` if needed for admin purposes.
+- Run `npm install` to install all the sass dependencies as dev.
+- Run `gulp style` -> to run css styles build on demand or `gulp watch` -> to continously watch your build.

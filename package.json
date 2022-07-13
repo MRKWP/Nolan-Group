@@ -1,0 +1,31 @@
+{
+  "name": "nolan-group",
+  "version": "0.1.0",
+  "description": "Nolan Group by MRK Development",
+  "author": "MRK Development - Matt Knighton",
+  "license": "GPL-2.0-or-later",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "browser-sync": "^2.26.14",
+    "cssnano": "^5.0.2",
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^4.1.0",
+    "postcss": "^8.2.15"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
+  "dependencies": {}
+}

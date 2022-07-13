@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.0.9
+- Added Product Carousel and filter by brands, number of items and product category
+
 ### 1.0.8
 - Added breadcrumbs filter
 

@@ -19,15 +19,15 @@ final class Init
 			PostTypes\CaseStudies::class,
 			PostTypes\Brochures::class,
 			
-            Filters\Links::class,
-            Filters\Paginations::class,
-            Filters\Brands::class,
+      Filters\Links::class,
+			Filters\Breadcrumbs ::class,
+      Filters\Paginations::class,
+      Filters\Brands::class,
+
+      Actions\PostTypes::class,
+      Actions\ProductTaxonomies::class,
             
-            Actions\PostTypes::class,
-            Actions\ProductTaxonomies::class,
-			
-            Taxonomies\ProductCategory::class,
-            
+			Taxonomies\ProductCategory::class,
 		];
 	}
 

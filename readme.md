@@ -11,9 +11,12 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
-### 1.0.8
+### 1.0.9
 - Added new filters for brands and paginations
 - added new actions for post types and product taxonomies
+
+### 1.0.8
+- Added breadcrumbs filter
 
 ### 1.0.7
 - Added new links filter

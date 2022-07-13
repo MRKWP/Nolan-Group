@@ -10,7 +10,7 @@ final class Init
 	 * Store all the classes inside an array.
 	 * @return array Full list of classes.
 	 */
-	public static function get_services() 
+	public static function get_services()
 	{
 		return [
 			PostTypes\Products::class,
@@ -18,18 +18,22 @@ final class Init
 			PostTypes\Guides::class,
 			PostTypes\CaseStudies::class,
 			PostTypes\Brochures::class,
+
 			Filters\Links::class,
 			Filters\Breadcrumbs ::class,
-			Taxonomies\ProductCategory::class,
+			
+            Taxonomies\ProductCategory::class,
+            
+            Shortcodes\ProductCarousel::class
 		];
 	}
 
 	/**
-	 * Loop through the classes, initialize them, 
+	 * Loop through the classes, initialize them,
 	 * and call the register() method if it exists
 	 * @return
 	 */
-	public static function register_services() 
+	public static function register_services()
 	{
 		foreach ( self::get_services() as $class ) {
 			$service = self::instantiate( $class );

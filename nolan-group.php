@@ -15,6 +15,8 @@
 // If this file is called firectly, abort!!!
 defined( 'ABSPATH' ) or die( 'No Access!' );
 
+define('NOLAN_GROUP_LIBRARY_VERSION', '1.0.7');
+
 // Require once the Composer Autoload.
 if ( file_exists( dirname( __FILE__ ) . '/lib/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/lib/autoload.php';

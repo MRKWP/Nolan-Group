@@ -77,7 +77,7 @@ class Products {
             'show_in_admin_bar'     => true,
             'show_in_nav_menus'     => true,
             'can_export'            => true,
-            'has_archive'           => 'wp-products',
+            'has_archive'           => 'nolan-products',
             'exclude_from_search'   => false,
             'publicly_queryable'    => true,
             'rewrite'               => $rewrite,

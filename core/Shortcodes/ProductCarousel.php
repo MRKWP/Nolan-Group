@@ -53,7 +53,7 @@ class ProductCarousel extends BaseController {
         }
         
         $args = [
-            'post_type'             => ['product'],
+            'post_type'             => ['nolan-product'],
             'posts_per_page'        => $numberOfItems,
         ];
         

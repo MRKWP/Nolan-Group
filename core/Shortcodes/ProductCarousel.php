@@ -39,7 +39,6 @@ class ProductCarousel extends BaseController {
         
         $numberOfItems = $attr['number'];
         $brandSlug = $attr['brand'];
-        $categoryID = $attr['category'];
         
         if(empty($brandSlug)) {
             if(!empty($post->ID) && $post->post_type == 'brand') {
@@ -58,29 +57,18 @@ class ProductCarousel extends BaseController {
         ];
         
         if(!empty($brand)) {
-            $product_terms = get_the_terms($brand, 'product-category');
-            if(!empty($product_terms)) {
-                $product_terms = wp_list_pluck($product_terms, 'term_id');
-                $args['tax_query'][] = [
-                    'taxonomy'  => 'product-category',
-                    'field'     => 'term_id',
-                    'terms'     => $product_terms,
-                    'operator'  => 'IN'
-                ];
-            }
-        } else if (!empty($categoryID)) {
-            $product_terms = get_term_by('slug', $categoryID, 'product-category' );
-            if(!empty($product_terms)) {
-                $args['tax_query'][] = [
-                    'taxonomy'  => 'product-category',
-                    'field'     => 'term_id',
-                    'terms'     => $product_terms,
-                ];
-            }
+            $args = [
+                'posts_per_page'        => $numberOfItems,
+                'relationship' => [
+                        'id'   => '103',
+                        'to' => $brand->ID,
+                    ],
+                'nopaging'     => true,
+            ];
         }
         
         $results = new \WP_Query( $args );
-    
+
         wp_enqueue_style( 'nolan-group-library-product-carousel', $this->plugin_url . '/assets/build/css/product-carousel.css' );
         wp_enqueue_script( 'nolan-group-library-swiper-bundle', $this->plugin_url.'/assets/src/js/swiper-bundle.min.js', [], NOLAN_GROUP_LIBRARY_VERSION);
         wp_enqueue_style( 'nolan-group-library-swiper-bundle', $this->plugin_url.'/assets/src/css/swiper-bundle.min.css', [], NOLAN_GROUP_LIBRARY_VERSION);
@@ -88,7 +76,7 @@ class ProductCarousel extends BaseController {
         
         if(!$results->have_posts())  return 'No Products found for this selection.';
         
-        $results = $results->get_posts();
+        $results = $results->posts;
         $post_list_formatted = '<div class="nolan-group-carousel-contents swiper">';
         $post_list_formatted .= '<div class="nolan-group-library-controls">';
         $post_list_formatted .= '<button class="swiper-button-prev"></button>';

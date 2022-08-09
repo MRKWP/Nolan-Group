@@ -23,6 +23,7 @@ final class Init
             Filters\Breadcrumbs ::class,
             Filters\Paginations::class,
             Filters\Brands::class,
+			Filters\CategorySideBar::class,
 
             Actions\PostTypes::class,
             Actions\ProductTaxonomies::class,

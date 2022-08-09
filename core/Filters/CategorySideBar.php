@@ -10,7 +10,7 @@ namespace Nolan_Group\Filters;
 class CategorySideBar {
     
     //Array of Term IDs for the side bar to be off
-    public $categories = array('marine','industrial','shade','automotive','acoustics','agriculture','hospitality');
+    public $categories = array('floor-coverings','commercial-upholstery','blinds-awnings','marine','industrial','shade','automotive','acoustics','agriculture','hospitality');
 
     /**
      * Register Filters and Actions

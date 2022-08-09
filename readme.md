@@ -11,6 +11,10 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.1
+- Added a filter for the product category pages that I want to filter the side bar on.
+- Make use of a blocksy filter to turn off the side bar on pages that are relevant.
+
 ### 1.1.0
 - Added Product Carousel and filter by brands, number of items and product category
 - Implement gulp to compile scss to css

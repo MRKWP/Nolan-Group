@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.3
+- Action scheduler and makers added for CSV Imports and Image import for Products
+
 ### 1.1.2
 - Fix product carousel styles
 

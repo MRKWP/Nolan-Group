@@ -30,7 +30,12 @@ final class Init
             
 			Taxonomies\ProductCategory::class,
             
-            Shortcodes\ProductCarousel::class
+            Shortcodes\ProductCarousel::class,
+
+			Pages\ManualSync::class,
+			Pages\BackgroundSync::class,
+
+			ScheduledActions\ProcessSync::class,
 		];
 	}
 

@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.2
+- Fix product carousel styles
+
 ### 1.1.1
 - Added a filter for the product category pages that I want to filter the side bar on.
 - Make use of a blocksy filter to turn off the side bar on pages that are relevant.

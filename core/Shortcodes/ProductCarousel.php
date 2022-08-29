@@ -82,7 +82,7 @@ class ProductCarousel extends BaseController {
         $post_list_formatted .= '<button class="swiper-button-prev"></button>';
         $post_list_formatted .= '<button class="swiper-button-next"></button>';
         $post_list_formatted .= "</div>";
-        $post_list_formatted .= '<div class="swiper-wrapper">';
+        $post_list_formatted .= '<div class="nolan-group-product-entries swiper-wrapper">';
         
         foreach ($results as $result) {
             $postID = $result->ID;
@@ -92,14 +92,14 @@ class ProductCarousel extends BaseController {
             $post_title = get_post_meta($postID, 'name', true);
             if(empty($post_title)) $post_title = $result->post_title;
             $post_list_formatted .= '<div class="nolan-group-carousel-content swiper-slide">';
-            $post_list_formatted .= sprintf('<a href="%s" title="%s">', $permalink, $post_title);
-            $post_list_formatted .= sprintf('<div class="nolan-group-featured-image"><div class="nolan-group-image">%s</div></div>', $featured_image);
+            $post_list_formatted .= sprintf('<a href="%s" class="%s" title="%s">', $permalink, 'nolan-group-product-entry', $post_title);
+            $post_list_formatted .= sprintf('<div class="nolan-group-product-image"><div class="ct-image-container nolan-group-image">%s</div></div>', $featured_image);
             $company_name_formatted = '';
             if(!empty($company_name)) {
                 $company_name_formatted .= sprintf('<p>%s</p>', $company_name);
             }
             
-            $post_list_formatted .= sprintf('<div class="nolan-group-title"><h2>%s</h2>%s</div>', $post_title, $company_name_formatted);
+            $post_list_formatted .= sprintf('<div class="nolan-group-product-title"><h2>%s</h2>%s</div>', $post_title, $company_name_formatted);
             
             $post_list_formatted .= '</a>';
             $post_list_formatted .= '</div>';

@@ -24,6 +24,7 @@ final class Init
             Filters\Paginations::class,
             Filters\Brands::class,
 			Filters\CategorySideBar::class,
+			Filters\FacetWP::class,
 
             Actions\PostTypes::class,
             Actions\ProductTaxonomies::class,

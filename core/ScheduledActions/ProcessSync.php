@@ -6,13 +6,16 @@ namespace Nolan_Group\ScheduledActions;
 
 use League\Csv\Reader;
 use Nolan_Group\Makers\Master;
-use Nolan_Group\Makers\Image;
+use Nolan_Group\Makers\ImageGallery;
 use \DateTime;
 
 class ProcessSync{
 
     public $productHook                   = 'run_single_product_hook';
     public $addProductHook                = 'add_single_product_hook';
+
+    public $productGalleryHook            = 'run_single_product_gallery_hook';
+    public $addProductGalleryHook         = 'add_single_product_gallery_hook';
 
     public $csvHook                       = 'get_all_product_hook';
     public $allProductProcessHook         = 'get_all_product_process_hook';
@@ -24,6 +27,10 @@ class ProcessSync{
         add_action( $this->productHook, [$this, 'runSingleProductHook'] );
 
         add_action( $this->addProductHook, [$this, 'addSingleProductHook'], 0 , 1 );
+
+        add_action( $this->productGalleryHook, [$this, 'runSingleProductGalleryHook'] );
+
+        add_action( $this->addProductGalleryHook, [$this, 'addSingleProductGalleryHook'], 0 , 1 );
 
         add_action( $this->allProductProcessHook, [$this, 'runAllProductHook'] );
 
@@ -55,10 +62,29 @@ class ProcessSync{
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         
         foreach ($records as $record) {
-            $data['record'] = $record;
-            do_action('run_single_product_hook', $data);
+            if(!empty($record['Product ID'])){
+                $data['record'] = $record;
+                do_action('run_single_product_hook', $data);
+            }
         }
 
+        unset($csv);
+
+        //load the CSV document from a file path
+        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'product-images.csv', 'r');
+        $csv->setHeaderOffset(0);
+        
+        $header = $csv->getHeader(); //returns the CSV header record
+                
+        $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+        
+        foreach ($records as $record) {
+            if(!empty($record['Reference ID'])){
+                $data['record'] = $record;
+                do_action('run_single_product_gallery_hook', $data);
+            }
+        }
+        
         unset($csv);
 
     }
@@ -115,6 +141,37 @@ class ProcessSync{
             $master->updateData();
         }
         unset($master);
+    }
+
+    /**
+     * Used to trigger a single sync of a Product Gallery Item from CSV into the action schedule
+     *
+     * @param [type] $sv_data
+     * @return void
+     */
+    public function runSingleProductGalleryHook($data){
+        $now = new DateTime();
+
+        \as_enqueue_async_action(
+          $this->addProductGalleryHook,
+          [$data],
+          $this->actionGroup
+        );
+    }
+
+    /**
+     * This is the actual trigger for a single product gallery import
+     *
+     * @param [type] $sv_data
+     * @return void
+     */
+    public function addSingleProductGalleryHook($data) {
+
+        $imagegallery = new ImageGallery($data['record']);
+        if($imagegallery->initData()){
+            $imagegallery->updateData();
+        }
+        unset($imagegallery);
     }
 
 }

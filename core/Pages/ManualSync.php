@@ -9,7 +9,7 @@
 namespace Nolan_Group\Pages;
 
 use League\Csv\Reader;
-use Nolan_Group\Makers\Master;
+use Nolan_Group\Makers\ImageGallery;
 
 class ManualSync {
 
@@ -32,7 +32,7 @@ class ManualSync {
     public function start_sync_callback() {
         ?>
             <div class="wrap">
-                <h1>Import Nolan Group CSV Files.</h1>
+                <h1>Import Nolan Group Image Gallery CSV Files.</h1>
             </div>
         <?php
         
@@ -40,7 +40,7 @@ class ManualSync {
         $upload_dir   = wp_upload_dir();
 
         //load the CSV document from a file path
-        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'products.csv', 'r');
+        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'product-images.csv', 'r');
         $csv->setHeaderOffset(0);
 
         $header = $csv->getHeader(); //returns the CSV header record
@@ -49,28 +49,31 @@ class ManualSync {
         
         foreach ($records as $record) {
 
-            if(!empty($record['Product ID'])){
-
-                //Show record data
-                print_r($record);
-                print('<hr>');
+            if(!empty($record['Reference ID'])){
                 
-                //setup a new Master Record
-                $master = new Master($record);
+                //Show record data
+                //print_r($record);
+                //print('<hr>');
+
+                
+                //setup a new ImageGallery Record
+                $image = new ImageGallery($record);
 
                 //Loop over the product and determine if a product update is required
-                if($master->initData()){
-                    $master->updateData();
+                if($image->initData()){
+                    $image->updateData();
                     //print_r($record);
-                    print('Loading Record for ID - '.$record['Product ID']. '<br>');
-                    print('Post ID - '.$master->post_id);
+                    print('Loading Record for ID - '.$record['Reference ID']. '<br>');
+                    print('Post ID - '.$image->post_id);
                     print('<hr>');
                 }
-                unset($master);
+                
+                unset($image);
+
             }
         }
 
-        echo "Sync completed for Product Import";
+        echo "Sync completed for Image Gallery Import";
         print('<hr>');
 
         unset($csv);

@@ -18,7 +18,11 @@ class ProcessSync{
     public $addProductGalleryHook         = 'add_single_product_gallery_hook';
 
     public $csvHook                       = 'get_all_product_hook';
+    public $csvImagesHook                 = 'get_all_product_images_hook';
+
     public $allProductProcessHook         = 'get_all_product_process_hook';
+    public $allProductImagesProcessHook   = 'get_all_product_images_process_hook';
+    
     public $actionGroup                   = 'nolangroup_sync';
     public $allActionGroup                = 'all_nolangroup_sync';
 
@@ -34,7 +38,11 @@ class ProcessSync{
 
         add_action( $this->allProductProcessHook, [$this, 'runAllProductHook'] );
 
+        add_action( $this->allProductImagesProcessHook, [$this, 'runAllProductImagesHook'] );
+
         add_action( $this->csvHook, [$this, 'runCSVProcessHook'] );
+
+        add_action( $this->csvImagesHook, [$this, 'runImageCSVProcessHook'] );
 
     }
 
@@ -69,6 +77,24 @@ class ProcessSync{
         }
 
         unset($csv);
+
+
+    }
+
+    /**
+     * Hooked action to run the CSV Process hook.
+     * 
+     * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
+     * 
+     * Triggers a DO ACTION on the run single product hook for each item in the CSV
+     * 
+     * @param [type] $data
+     * @return void
+     */
+    public function runImageCSVProcessHook($data){
+
+        //get the upload directory
+        $upload_dir   = wp_upload_dir();
 
         //load the CSV document from a file path
         $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'product-images.csv', 'r');
@@ -106,6 +132,29 @@ class ProcessSync{
                 $now->getTimestamp(),
                 60 * 60 * 1, // every 24 hours
                 $this->csvHook,
+                [$que],
+                $this->allActionGroup
+              );
+        }
+    }
+
+    /**
+     * Hooked action to run CSV Imports. This is recurring and daily task
+     *
+     * @return void
+     */
+    public function runAllProductImagesHook() {
+
+        $que['snippet'] = 1;
+        
+        $now = new DateTime();
+
+        if(!as_has_scheduled_action( $this->csvImagesHook)){
+
+            \as_schedule_recurring_action(
+                $now->getTimestamp(),
+                60 * 60 * 1, // every 24 hours
+                $this->csvImagesHook,
                 [$que],
                 $this->allActionGroup
               );

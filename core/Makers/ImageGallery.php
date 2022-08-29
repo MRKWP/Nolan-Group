@@ -84,7 +84,7 @@ Class ImageGallery{
     public function __construct( $data ) {
 
         $this->data         = $data;
-        $this->list_id      = $data['Product ID'];
+        $this->list_id      = $data['Reference ID'];
         $this->post_title   = $data['Product Name'];
 
         $upload_dir         = wp_upload_dir();
@@ -148,44 +148,65 @@ Class ImageGallery{
 
         //Process images
         if(!empty($this->data['Gallery 1'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 1']));
+            $attachment_id_1 = $this->processImage($this->data['Gallery 1']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_1);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_1, false );
         }
         if(!empty($this->data['Gallery 2'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 2']));
+            $attachment_id_2 = $this->processImage($this->data['Gallery 2']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_2);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_2, false );
         }
         if(!empty($this->data['Gallery 3'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 3']));
+            $attachment_id_3 = $this->processImage($this->data['Gallery 3']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_3);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_3, false );
         }
         if(!empty($this->data['Gallery 4'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 4']));
+            $attachment_id_4 = $this->processImage($this->data['Gallery 4']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_4);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_4, false );
         }
         if(!empty($this->data['Gallery 5'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 5']));
+            $attachment_id_5 = $this->processImage($this->data['Gallery 5']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_5);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_5, false );
         }
         if(!empty($this->data['Gallery 6'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 6']));
+            $attachment_id_6 = $this->processImage($this->data['Gallery 6']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_6);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_6, false );
         }
         if(!empty($this->data['Gallery 7'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 7']));
+            $attachment_id_7 = $this->processImage($this->data['Gallery 7']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_7);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_7, false );
         }
         if(!empty($this->data['Gallery 8'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 8']));
+            $attachment_id_8 = $this->processImage($this->data['Gallery 8']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_8);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_8, false );
         }
         if(!empty($this->data['Gallery 9'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 9']));
+            $attachment_id_9 = $this->processImage($this->data['Gallery 9']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_9);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_9, false );
         }
         if(!empty($this->data['Gallery 10'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 10']));
+            $attachment_id_10 = $this->processImage($this->data['Gallery 10']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_10);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_10, false );
         }
         if(!empty($this->data['Gallery 11'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 11']));
+            $attachment_id_11 = $this->processImage($this->data['Gallery 11']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_11);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_11, false );
         }
         if(!empty($this->data['Gallery 12'])){
-            array_push($this->gallery_images, $this->processImage($this->data['Gallery 12']));
+            $attachment_id_12 = $this->processImage($this->data['Gallery 12']);
+            delete_post_meta($this->post_id, 'gallery_images', $attachment_id_12);
+            add_post_meta( $this->post_id, 'gallery_images', $attachment_id_12, false );
         }
-
-        //Now all images are imported. Add the images to the advanced image field.
-        rwmb_set_meta( $this->post_id, 'gallery_images', $this->gallery_images );
 
         //Finished.
     }

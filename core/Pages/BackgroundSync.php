@@ -40,6 +40,8 @@ class BackgroundSync {
         echo "Sync started - <a href='/wp-admin/tools.php?page=action-scheduler&status=pending'>check Action Scheduler</a> to view all import actions on the server.";
 
         do_action('get_all_product_process_hook');
+
+        do_action('get_all_product_images_process_hook');
         
     }
 }

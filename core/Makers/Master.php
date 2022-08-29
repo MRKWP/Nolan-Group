@@ -156,9 +156,19 @@ Class Master{
         MB_Relationships_API::add( $this->post_id, $this->data['Brand'], 103, 1, 1 );
 
         //set the features
+        $features = explode("|",$this->data['Features (Only 5)']);
 
+        foreach ($features as $feature){
+            delete_post_meta($this->post_id, 'features_and_benefits', $feature);
+            add_post_meta( $this->post_id, 'features_and_benefits', $feature, false );
+        }
         //set the technical spec
-        
+        $techspecs = explode("|",$this->data['Technical Specifications']);
+
+        foreach ($techspecs as $techspec){
+            delete_post_meta($this->post_id, 'technical_specifications', $techspec);
+            add_post_meta( $this->post_id, 'technical_specifications', $techspec, false );
+        }
         //Publish the post
         wp_publish_post($this->post_id);
 

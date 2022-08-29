@@ -11,6 +11,13 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.5
+- Makers now delete old data before adding new to avoid duplications on re-run of schedule
+- technical specs and features and benefits added to product import.
+
+### 1.1.4
+- Action scheduler and makers added for CSV Imports. Image Gallery import move to own process.
+
 ### 1.1.3
 - Action scheduler and makers added for CSV Imports and Image import for Products
 

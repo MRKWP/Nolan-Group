@@ -155,16 +155,31 @@ Class Master{
         //set brand relationship
         MB_Relationships_API::add( $this->post_id, $this->data['Brand'], 103, 1, 1 );
 
-        //set the features - TODO - Work out what type of array is needed for the features and tech specs to be saved
+        //set the features
         $features = explode("|",$this->data['Features (Only 5)']);
+        $featureitems = array();
+
         if(is_array($features)){
-            add_post_meta( $this->post_id, 'features_and_benefits', $features );
+
+            foreach($features as $feature){
+                array_push($featureitems, array(0=>$feature));
+            }
+
+            rwmb_set_meta( $this->post_id, 'features_and_benefits', $featureitems );
         }
         
         //set the technical spec
         $techspecs = explode("|",$this->data['Technical Specifications']);
+        
+        $techitems = array();
+
         if(is_array($techspecs)){
-            rwmb_set_meta( $this->post_id, 'technical_specifications', $techspecs );
+            
+            foreach($techspecs as $techspec){
+                array_push($techitems, array(0=>$techspec));
+            }
+
+            rwmb_set_meta( $this->post_id, 'technical_specifications', $techitems );
         }
 
         //Publish the post

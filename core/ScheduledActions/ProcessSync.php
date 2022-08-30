@@ -9,6 +9,7 @@ use Nolan_Group\Makers\Master;
 use Nolan_Group\Makers\ImageGallery;
 use Nolan_Group\Makers\Swatch;
 use \DateTime;
+use WP_Query;
 
 class ProcessSync{
 
@@ -27,6 +28,7 @@ class ProcessSync{
 
     public $allProductProcessHook         = 'get_all_product_process_hook';
     public $allProductImagesProcessHook   = 'get_all_product_images_process_hook';
+    public $allProductSwatchProcessHook   = 'get_all_product_swatch_process_hook';
     
     public $actionGroup                   = 'nolangroup_sync';
     public $allActionGroup                = 'all_nolangroup_sync';
@@ -152,9 +154,13 @@ class ProcessSync{
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         
         foreach ($records as $record) {
-            if(!empty($record['Reference ID'])){
+            if(!empty($record['Product ID'])){
                 $data['record'] = $record;
-                do_action('run_single_product_swatch_hook', $data);
+
+                //clear the swatches for the updated product ID
+                if($this->clearswatch($data['record']['Product ID'])){
+                    do_action('run_single_product_swatch_hook', $data);
+                };
             }
         }
         
@@ -177,7 +183,7 @@ class ProcessSync{
 
             \as_schedule_recurring_action(
                 $now->getTimestamp(),
-                60 * 60 * 1, // every 24 hours
+                60 * 60 * 48, // every 48 hours
                 $this->csvHook,
                 [$que],
                 $this->allActionGroup
@@ -200,7 +206,7 @@ class ProcessSync{
 
             \as_schedule_recurring_action(
                 $now->getTimestamp(),
-                60 * 60 * 1, // every 24 hours
+                60 * 60 * 48, // every 48 hours
                 $this->csvImagesHook,
                 [$que],
                 $this->allActionGroup
@@ -223,7 +229,7 @@ class ProcessSync{
 
             \as_schedule_recurring_action(
                 $now->getTimestamp(),
-                60 * 60 * 1, // every 24 hours
+                60 * 60 * 48, // every 48 hours
                 $this->csvSwatchHook,
                 [$que],
                 $this->allActionGroup
@@ -315,13 +321,52 @@ class ProcessSync{
      * @param [type] $sv_data
      * @return void
      */
-    public function addSingleSwatchGalleryHook($data) {
+    public function addSingleProductSwatchHook($data) {
 
         $productswatch = new Swatch($data['record']);
+
+        //Create the new swatch
         if($productswatch->initData()){
             $productswatch->updateData();
         }
         unset($productswatch);
     }
 
+
+    /**
+     * clear all swatch data from a post ID based on External ID.
+     * If ID does not exist return false so swatch is not updated or added.
+     *
+     * @param [type] $id
+     * @return boolean
+     */
+    public function clearswatch($id){
+
+        $post_id;
+
+        $args = array(
+            'numberposts'	=> 1,
+            'post_type'		=> 'nolan-product',
+            'meta_key'		=> 'nolan_external_id',
+            'meta_value'    => $id,
+            'compare'       => '='
+            );
+
+        // query the item
+        $the_query = new WP_Query( $args );
+
+        //We found posts and need to do an update
+        if( $the_query->have_posts() ):
+            while ( $the_query->have_posts() ) : 
+                $the_query->the_post();
+                $post_id = $the_query->post->ID;
+            endwhile;
+
+            $post_id;
+
+            return true;
+        endif;
+
+        return false;
+    }
 }

@@ -121,23 +121,13 @@ Class Swatch{
                 $the_query->the_post();
                 $this->post_id = $the_query->post->ID;
             endwhile;
-        else:
-            $this->process_req = true;
 
-            //map up my insert
-            $some_post = array(
-                'post_title' => $this->post_title,
-                'post_name' => sanitize_title_with_dashes($this->post_title,'','save'),
-                'post_type' => $this->post_type,
-                'post_content' => 'Content',
-                'post_status' => 'draft'
-            );
-        
-            $this->post_id = wp_insert_post($some_post);
-            
+            return $this->post_id;
+
         endif;
 
-        return $this->post_id;
+        return false;
+        
     }
 
 
@@ -148,9 +138,23 @@ Class Swatch{
 
         //Process images
         if(!empty($this->data['File Path'])){
-            $swatch = $this->processImage($this->data['File Path']);
+            if (str_contains($this->data['File Path'], 'http')) {
+                
+                $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
+                $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
+
+            }else{
+                $swatch['swatch_image'] = $this->processImage($this->data['File Path'], false, "Local File");
+            }
         }
         
+        $swatch['id']           =   $this->data['Wordpress Swatch ID'];
+        $swatch['sku']          =   empty($this->data['SKU']) ? "No SKU" : $this->data['SKU'];
+        $swatch['swatch_name']  =   $this->data['Colour Name'];
+        $swatch['swatch_color'] =   $this->data['Colour Family'];
+
+        //add new post meta
+        add_post_meta( $this->post_id, 'swatch', $swatch, false );
 
         //Finished.
     }
@@ -158,40 +162,42 @@ Class Swatch{
     /**
      * Process a search for uploaded images
      *
-     * @return void
+     * @return number
      */
-    public function processImage($image){
+    public function processImage($image, $remote, $remote_url){
 
-            //get the file path
-            $image_file = $this->upload_dir.'gallery-images'.DIRECTORY_SEPARATOR.$image;
+        //If file is local we need to check we can find it for import
+        if($remote===true){
+            $image_url = $remote_url;
+        }else{
+            $image_url = $this->upload_url.'/swatch-images'.'/'.$image;
+        }
 
-                //Check the files exists
-                if(file_exists($image_file)){
+        $image_file = $this->upload_dir.'swatch-images'.DIRECTORY_SEPARATOR.$image;
 
-                    //Get the attachment if it already exists
-                    $attachment_id = $this->MediaFileAlreadyExists($image);
+        //Check the files exists
+        if(file_exists($image_file)){
 
-                    if(!$attachment_id){
+            //Get the attachment if it already exists
+            $attachment_id = $this->MediaFileAlreadyExists($image);
 
-                        //Create an image URL to pull the image into the media library
-                        $image_url = $this->upload_url.'/gallery-images'.'/'.$image;
+            if(!$attachment_id){
 
-                        echo $image_url." <br>";
+                //Create an image URL to pull the image into the media library
+                echo $image_url." <br>";
 
-                        //Set the featured image if we are getting the first image
-                        $attachment_id = $this->beliefmedia_import_image($image_url, $image);
+                //Set the featured image if we are getting the first image
+                $attachment_id = $this->beliefmedia_import_image($image_url, $image);
 
-                    }
+            }
 
-                    return $attachment_id;
-                    //Set the featured image if we are getting the first image
-                    //Set_post_thumbnail($this->post_id, $attachment_id);
+            return $attachment_id;
 
-                }else{
-                    echo "<br>File not found for Gallery Image<br>";
-                    print($image_file);
-                    echo "<br>";
-                }
+        }else{
+            echo "<br>File not found for Swatch Image<br>";
+            print($image_file);
+            echo "<br>";
+        }
     }
 
     /**

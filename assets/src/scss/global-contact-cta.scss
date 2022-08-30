@@ -1,0 +1,42 @@
+.nolan-group-global-contact-cta-container {
+  background-color: #003E89;
+  padding: 35px 40px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  border-radius: 8px;
+
+  .nolan-group-global-contact-cta-header-text {
+    h2 {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 22px;
+      margin: 0;
+    }
+
+
+    h3 {
+      color: #ffffff;
+      font-size: 22px;
+      margin: 0;
+    }
+  }
+
+  a {
+    border: 2px solid #ffffff;
+    padding: 13px 6px 13px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #ffffff;
+    background-color: #1a5294;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    svg {
+      position: relative;
+      left: -4px;
+    }
+  }
+}

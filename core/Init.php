@@ -32,6 +32,8 @@ final class Init
 			Taxonomies\ProductCategory::class,
             
             Shortcodes\ProductCarousel::class,
+            Shortcodes\ContactCTA::class,
+            Shortcodes\BrandsFeatured::class,
 
 			Pages\ManualSync::class,
 			Pages\BackgroundSync::class,

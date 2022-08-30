@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.6
+- Added a global contact CTA shortcode
+
 ### 1.1.5
 - Makers now delete old data before adding new to avoid duplications on re-run of schedule
 - technical specs and features and benefits added to product import.

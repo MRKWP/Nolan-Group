@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
   
 ## Changelog
 
+### 1.1.7
+- Swatch sync is now working and implemented as a post processing hook setup.
+
 ### 1.1.6
 - Added a global contact CTA shortcode
 

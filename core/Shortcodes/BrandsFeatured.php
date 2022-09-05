@@ -37,11 +37,12 @@ class BrandsFeatured extends BaseController {
         if(!$results->have_posts())  return 'No Featured Brands found for this selection.';
         
         $results = $results->posts;
-        $post_list_formatted = '<div class="nolan-group-carousel-contents swiper">';
-        $post_list_formatted .= '<div class="nolan-group-library-controls">';
+        $post_list_formatted = '<div class="nolan-group-carousel-contents-container">';
+        $post_list_formatted .= '<div class="nolan-group-library-controls nolan-group-library-outside-container-controls">';
         $post_list_formatted .= '<button class="swiper-button-prev"></button>';
         $post_list_formatted .= '<button class="swiper-button-next"></button>';
         $post_list_formatted .= "</div>";
+        $post_list_formatted .= '<div class="nolan-group-carousel-contents swiper nolan-group-outside-arrows-container">';
         $post_list_formatted .= '<div class="nolan-group-product-entries swiper-wrapper">';
     
     
@@ -61,6 +62,7 @@ class BrandsFeatured extends BaseController {
     
         $post_list_formatted .= '</div>';
         $post_list_formatted .= '<div class="nolan-group-pagination swiper-pagination"></div>';
+        $post_list_formatted .= '</div>';
         $post_list_formatted .= '</div>';
     
         return $post_list_formatted;

@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
                 },
                 slidesPerView: 1,
                 spaceBetween: 15,
-                loop: false,
+                loop: true,
                 lazyLoading: true,
                 keyboard: {
                     enabled: true

@@ -29,7 +29,7 @@ class TaxonomyIcon extends BaseController {
      */
     public function get_taxonomy_icons($attr, $content) {
         $attr = wp_parse_args($attr, [
-            'taxonomy'  => 'category',
+            'taxonomy'  => 'product-category',
         ]);
     
         $taxonomy = $attr['taxonomy'];
@@ -51,7 +51,7 @@ class TaxonomyIcon extends BaseController {
     
         $grid_columns = "repeat({$count_items}, minmax(0,1fr))";
         if($count_items > 5) {
-            $grid_columns = 'repeat(3, minmax(0,1fr))';
+            $grid_columns = 'repeat(5, minmax(0,1fr))';
         }
     
         $post_list_formatted = '<div class="nolan-group-taxonomies-content">';
@@ -65,11 +65,16 @@ class TaxonomyIcon extends BaseController {
         
             $term_link = get_term_link($term_id, $taxonomy);
         
-            $term_icon_url = function_exists('get_term_featured_image') ? get_term_featured_image( $term_id ) : '';
+            $term_icon = rwmb_meta( 'category_icon',['object_type' => 'term','size' => 'thumbnail'], $term_id );
+            
+            $term_icon_url = '';
+            if(isset($term_icon['full_url'])) {
+                $term_icon_url = sprintf('<img src="%s" alt="%s Icon" class="category-icon">', $term_icon['full_url'], $term_name);
+            }
         
             $post_list_formatted .= sprintf('<li class="nolan-group-taxonomy"><a href="%s" title="%s">', $term_link, $term_name);
         
-            if(!empty($term_icon_url))  $post_list_formatted .= sprintf('<div class="nolan-group-taxonomy-icon"><img src="%s" alt="%s Icon" class="category-icon"></div>', $term_icon_url, $term_name);
+            if(!empty($term_icon_url))  $post_list_formatted .= sprintf('<div class="nolan-group-taxonomy-icon">%s</div>', $term_icon_url, $term_name);
         
             $post_list_formatted .= sprintf('<div class="nolan-group-taxonomy-name"><p>%s</p></div>', $term_name);
         

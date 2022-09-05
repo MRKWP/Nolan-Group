@@ -13,6 +13,7 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ### 1.1.8
 - Added Category Grid shortcode that displays name and featured image.
+- Fix featured brand carousel user interface
 
 ### 1.1.7
 - Swatch sync is now working and implemented as a post processing hook setup.

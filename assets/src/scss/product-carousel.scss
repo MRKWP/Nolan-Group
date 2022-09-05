@@ -9,8 +9,11 @@
     display: block;
   }
 
+  &.nolan-group-outside-arrows-container {
+    max-width: calc(100% - 100px);
+  }
+
   .swiper-wrapper {
-    justify-content: center;
     grid-gap: unset;
 
     @media screen and (max-width: 1024px) {
@@ -19,41 +22,6 @@
 
     @media screen and (max-width: 768px) {
       justify-content: flex-start;
-    }
-  }
-
-  .nolan-group-library-controls {
-    button {
-      background-color: #023f88;
-
-      &.swiper-button-prev,
-      &.swiper-button-next {
-        top: calc(50% - 37px) !important;
-        border: none;
-        border-radius: 50%;
-        padding: 10px;
-        z-index: 2;
-        width: 44px;
-
-        &.swiper-button-disabled {
-          cursor: unset;
-          pointer-events: unset;
-        }
-      }
-
-      &.swiper-button-next {
-        right: 0 !important;
-      }
-
-      &.swiper-button-prev {
-        left: 0 !important;
-      }
-
-      &::after {
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: bolder;
-      }
     }
   }
 
@@ -69,6 +37,57 @@
 
     .swiper-pagination-bullet-active {
       background-color: #023f88;
+    }
+  }
+}
+
+.nolan-group-carousel-contents-container {
+  position: relative;
+}
+
+.nolan-group-library-controls {
+  &.nolan-group-library-outside-container-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+
+
+    &.swiper-button-prev,
+    &.swiper-button-next {
+      top: calc(50% - 30px) !important;
+    }
+  }
+
+  button {
+    background-color: #023f88;
+
+    &.swiper-button-prev,
+    &.swiper-button-next {
+      top: calc(50% - 37px) !important;
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      z-index: 2;
+      width: 44px;
+
+      &.swiper-button-disabled {
+        cursor: unset;
+        pointer-events: unset;
+      }
+    }
+
+    &.swiper-button-next {
+      right: 0 !important;
+    }
+
+    &.swiper-button-prev {
+      left: 0 !important;
+    }
+
+    &::after {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: bolder;
     }
   }
 }

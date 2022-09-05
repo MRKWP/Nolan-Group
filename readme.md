@@ -8,14 +8,18 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ### Tech Used
 - Composer for autoloading and namespacing.
-  
+
 ## Changelog
+
+### 1.1.8
+- Added Category Grid shortcode that displays name and featured image.
 
 ### 1.1.7
 - Swatch sync is now working and implemented as a post processing hook setup.
 
 ### 1.1.6
 - Added a global contact CTA shortcode
+- Added featured brand carousel
 
 ### 1.1.5
 - Makers now delete old data before adding new to avoid duplications on re-run of schedule

@@ -42,6 +42,8 @@ class BackgroundSync {
         do_action('get_all_product_process_hook');
 
         do_action('get_all_product_images_process_hook');
+
+        do_action('get_all_product_swatch_process_hook');
         
     }
 }

@@ -1,0 +1,71 @@
+
+.nolan-group-taxonomies-content {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+
+  ul.nolan-group-taxonomies {
+    display: grid;
+    list-style: none;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-gap: 10px;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: row;
+    padding-left: 0;
+
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    li {
+      list-style: none;
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        color: #023f88;
+        display: block;
+        margin: auto;
+        max-width: max-content;
+
+        &:hover {
+          color: #023f88;
+          transform: scale(1.05);
+
+          .nolan-group-taxonomy-name {
+            p {
+              color: #023f88;
+            }
+          }
+        }
+
+        .nolan-group-taxonomy-icon {
+          img {
+            margin: 0 auto;
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+          }
+        }
+
+        .nolan-group-taxonomy-name {
+          margin-top: 24px;
+          margin-bottom: 24px;
+
+          p {
+            color: #023f88;
+            margin: 0;
+            font-weight: bold;
+            line-height: 1.3;
+            font-size: 17px
+          }
+        }
+      }
+    }
+  }
+}

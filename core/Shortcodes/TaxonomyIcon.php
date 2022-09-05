@@ -65,7 +65,7 @@ class TaxonomyIcon extends BaseController {
         
             $term_link = get_term_link($term_id, $taxonomy);
         
-            $term_icon_url = get_term_featured_image( $term_id );
+            $term_icon_url = function_exists('get_term_featured_image') ? get_term_featured_image( $term_id ) : '';
         
             $post_list_formatted .= sprintf('<li class="nolan-group-taxonomy"><a href="%s" title="%s">', $term_link, $term_name);
         

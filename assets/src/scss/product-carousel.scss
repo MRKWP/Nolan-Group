@@ -46,24 +46,15 @@
 }
 
 .nolan-group-library-controls {
-  &.nolan-group-library-outside-container-controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-
-
-    &.swiper-button-prev,
-    &.swiper-button-next {
-      top: calc(50% - 30px) !important;
-    }
-  }
+  position: absolute;
+  width: 100%;
+  top: calc(50% - 22px) !important;
 
   button {
     background-color: #023f88;
 
     &.swiper-button-prev,
     &.swiper-button-next {
-      top: calc(50% - 37px) !important;
       border: none;
       border-radius: 50%;
       padding: 10px;

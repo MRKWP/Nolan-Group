@@ -2,6 +2,12 @@ window.addEventListener('load', () => {
 
     if(document.querySelectorAll('.nolan-group-carousel-contents')) {
         document.querySelectorAll('.nolan-group-carousel-contents').forEach((element) => {
+
+            let desk_loop = false;
+
+            if(element.querySelectorAll('.swiper-slide') && element.querySelectorAll('.swiper-slide').length > 5) {
+                desk_loop = true;
+            }
             let carousel = new Swiper(element, {
                 autoplay: {
                     delay: 3000,
@@ -16,8 +22,8 @@ window.addEventListener('load', () => {
                     }
                 },
                 navigation: {
-                    prevEl: element.querySelector('.swiper-button-prev'),
-                    nextEl: element.querySelector('.swiper-button-next')
+                    prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-button-next'
                 },
                 slidesPerView: 1,
                 spaceBetween: 15,
@@ -31,12 +37,15 @@ window.addEventListener('load', () => {
                 breakpoints: {
                     640: {
                         slidesPerView: 1,
+                        loop: true,
                     },
                     768: {
                         slidesPerView: 3,
+                        loop: true,
                     },
                     1024: {
                         slidesPerView: 5,
+                        loop: desk_loop,
                     },
                 },
             });

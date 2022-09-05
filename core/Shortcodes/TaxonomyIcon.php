@@ -74,7 +74,7 @@ class TaxonomyIcon extends BaseController {
         
             $post_list_formatted .= sprintf('<li class="nolan-group-taxonomy"><a href="%s" title="%s">', $term_link, $term_name);
         
-            if(!empty($term_icon_url))  $post_list_formatted .= sprintf('<div class="nolan-group-taxonomy-icon">%s</div>', $term_icon_url, $term_name);
+            if(!empty($term_icon_url))  $post_list_formatted .= sprintf('<div class="nolan-group-taxonomy-icon">%s</div>', $term_icon_url);
         
             $post_list_formatted .= sprintf('<div class="nolan-group-taxonomy-name"><p>%s</p></div>', $term_name);
         

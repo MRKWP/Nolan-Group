@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ## Changelog
 
+### 1.1.9
+- Added new external link field for both Brands and Nolan Products CPT
+
 ### 1.1.8
 - Added Category Grid shortcode that displays name and featured image.
 - Fix featured brand carousel user interface

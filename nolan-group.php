@@ -7,7 +7,7 @@
  * Author URI:      https://www.mrkwp.com
  * Text Domain:     mrkwp-website
  * Domain Path:     /languages
- * Version:         1.1.8
+ * Version:         1.1.9
  *
  * @package nolan-group
  */
@@ -15,7 +15,7 @@
 // If this file is called firectly, abort!!!
 defined( 'ABSPATH' ) or die( 'No Access!' );
 
-define('NOLAN_GROUP_LIBRARY_VERSION', '1.1.8');
+define('NOLAN_GROUP_LIBRARY_VERSION', '1.1.9');
 
 // Require once the Composer Autoload.
 if ( file_exists( dirname( __FILE__ ) . '/lib/autoload.php' ) ) {

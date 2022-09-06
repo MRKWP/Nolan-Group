@@ -23,6 +23,7 @@ final class Init
             Filters\Breadcrumbs ::class,
             Filters\Paginations::class,
             Filters\Brands::class,
+            Filters\Products::class,
 			Filters\CategorySideBar::class,
 			Filters\FacetWP::class,
 

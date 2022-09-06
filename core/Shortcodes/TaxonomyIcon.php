@@ -30,14 +30,16 @@ class TaxonomyIcon extends BaseController {
     public function get_taxonomy_icons($attr, $content) {
         $attr = wp_parse_args($attr, [
             'taxonomy'  => 'product-category',
+            'parent'  => 0,
         ]);
     
         $taxonomy = $attr['taxonomy'];
+        $parent = $attr['parent'];
         
         $args = [
             'taxonomy'  => $taxonomy,
             'number'    => 10,
-            'parent'    => 0
+            'parent'    => $parent
         ];
     
         $terms = get_terms($args);

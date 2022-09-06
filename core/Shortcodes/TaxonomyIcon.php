@@ -36,7 +36,8 @@ class TaxonomyIcon extends BaseController {
         
         $args = [
             'taxonomy'  => $taxonomy,
-            'number'    => 10
+            'number'    => 10,
+            'parent'    => 0
         ];
     
         $terms = get_terms($args);

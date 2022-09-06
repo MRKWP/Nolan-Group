@@ -39,7 +39,9 @@ class TaxonomyIcon extends BaseController {
         $args = [
             'taxonomy'  => $taxonomy,
             'number'    => 10,
-            'parent'    => $parent
+            'parent'    => $parent,
+            'orderby'   => 'meta_value',
+            'meta_key'   => 'category_order'
         ];
     
         $terms = get_terms($args);

@@ -50,7 +50,7 @@ class Brands
             if(! empty ($link_type) && $link_type !== 'none') {
                 if($link_type == 'page_id') {
                     $page_id_value = rwmb_meta( 'link_page_id', '', $post->ID );
-                    if( ! empty ( $page_id_value ) ) {
+                    if( ! empty ( $page_id_value )  && $page_id_value !== $post->ID ) {
                         return get_permalink($page_id_value) ? get_permalink($page_id_value) :  $url;
                     }
                 } elseif ($link_type == 'external_url') {

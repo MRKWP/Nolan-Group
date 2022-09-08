@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ## Changelog
 
+### 1.1.10
+- Remove SKU from Import process.
+
 ### 1.1.9
 - Added new external link field for both Brands and Nolan Products CPT
 

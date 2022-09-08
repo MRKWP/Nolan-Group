@@ -149,7 +149,6 @@ Class Swatch{
         }
         
         $swatch['id']           =   $this->data['Wordpress Swatch ID'];
-        $swatch['sku']          =   empty($this->data['SKU']) ? "No SKU" : $this->data['SKU'];
         $swatch['swatch_name']  =   $this->data['Colour Name'];
         $swatch['swatch_color'] =   $this->data['Colour Family'];
 

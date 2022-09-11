@@ -237,7 +237,9 @@ Class Master{
         $taxonomy = "product-category";
         $terms = array();
 
-        array_push($terms, $this->data['Secondary category'], $this->data['Primary category']);
+        array_push($terms, $this->data['Primary category']);
+
+        array_push($terms,explode("|",$this->data['Secondary category']));
         
         wp_set_post_terms( $this->post_id, $terms, $taxonomy );
         

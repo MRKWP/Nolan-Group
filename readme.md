@@ -12,7 +12,7 @@ Nolan Group Library for core functions on the site by MRKWP.com
 ## Changelog
 
 ### 1.1.11
-- Fix priamry and secondary category
+- Fix primary and secondary category
 
 ### 1.1.10
 - Remove SKU from Import process.

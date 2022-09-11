@@ -165,11 +165,11 @@ Class Swatch{
      */
     public function processImage($image, $remote, $remote_url){
 
+        $image_url = $this->upload_url.'/swatch-images'.'/'.$image;
+
         //If file is local we need to check we can find it for import
-        if($remote===true){
+        if($remote==true){
             $image_url = $remote_url;
-        }else{
-            $image_url = $this->upload_url.'/swatch-images'.'/'.$image;
         }
 
         $image_file = $this->upload_dir.'swatch-images'.DIRECTORY_SEPARATOR.$image;
@@ -183,7 +183,9 @@ Class Swatch{
             if(!$attachment_id){
 
                 //Create an image URL to pull the image into the media library
-                echo $image_url." <br>";
+                if(isset($image_url)){
+                    echo $image_url." <br>";
+                }
 
                 //Set the featured image if we are getting the first image
                 $attachment_id = $this->beliefmedia_import_image($image_url, $image);

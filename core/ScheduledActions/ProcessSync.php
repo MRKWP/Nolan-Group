@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package  Simpleview_Listings
  */
@@ -34,7 +34,7 @@ class ProcessSync{
     public $allActionGroup                = 'all_nolangroup_sync';
 
     public function __construct() {
-
+        
         add_action( $this->productHook, [$this, 'runSingleProductHook'] );
 
         add_action( $this->addProductHook, [$this, 'addSingleProductHook'], 0 , 1 );
@@ -63,11 +63,11 @@ class ProcessSync{
 
     /**
      * Hooked action to run the CSV Process hook.
-     * 
+     *
      * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
-     * 
+     *
      * Triggers a DO ACTION on the run single product hook for each item in the CSV
-     * 
+     *
      * @param [type] $data
      * @return void
      */
@@ -77,7 +77,7 @@ class ProcessSync{
         $upload_dir   = wp_upload_dir();
 
         //load the CSV document from a file path
-        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'products.csv', 'r');
+        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'products-sample.csv', 'r');
         $csv->setHeaderOffset(0);
 
         $header = $csv->getHeader(); //returns the CSV header record
@@ -98,11 +98,11 @@ class ProcessSync{
 
     /**
      * Hooked action to run the CSV Process hook.
-     * 
+     *
      * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
-     * 
+     *
      * Triggers a DO ACTION on the run single product hook for each item in the CSV
-     * 
+     *
      * @param [type] $data
      * @return void
      */
@@ -116,7 +116,7 @@ class ProcessSync{
         $csv->setHeaderOffset(0);
         
         $header = $csv->getHeader(); //returns the CSV header record
-                
+        
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         
         foreach ($records as $record) {
@@ -132,11 +132,11 @@ class ProcessSync{
 
     /**
      * Hooked action to run the CSV Process hook.
-     * 
+     *
      * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
-     * 
+     *
      * Triggers a DO ACTION on the run single product hook for each item in the CSV
-     * 
+     *
      * @param [type] $data
      * @return void
      */
@@ -150,7 +150,7 @@ class ProcessSync{
         $csv->setHeaderOffset(0);
         
         $header = $csv->getHeader(); //returns the CSV header record
-                
+        
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         
         foreach ($records as $record) {
@@ -357,7 +357,7 @@ class ProcessSync{
 
         //We found posts and need to do an update
         if( $the_query->have_posts() ):
-            while ( $the_query->have_posts() ) : 
+            while ( $the_query->have_posts() ) :
                 $the_query->the_post();
                 $post_id = $the_query->post->ID;
             endwhile;

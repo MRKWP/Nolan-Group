@@ -1,7 +1,7 @@
 <?php
 /**
  * Make a product entry
- * 
+ *
  * @package  Nolan_group
  */
 namespace Nolan_Group\Makers;
@@ -33,7 +33,7 @@ Class Master{
 
     /**
      * does this object need to be processed?
-     * 
+     *
      * @var bool true when we should update
      */
     public $process_req = false;
@@ -107,7 +107,7 @@ Class Master{
 
         //We found posts and need to do an update
         if( $the_query->have_posts() ):
-            while ( $the_query->have_posts() ) : 
+            while ( $the_query->have_posts() ) :
                 $the_query->the_post();
                 $this->post_id = $the_query->post->ID;
             endwhile;
@@ -151,8 +151,39 @@ Class Master{
         rwmb_set_meta( $this->post_id, 'width', $this->data['Width - CM'] );
         rwmb_set_meta( $this->post_id, 'weight', $this->data['Weight - GSM'] );
         rwmb_set_meta( $this->post_id, 'roll_length', $this->data['Roll Length - M'] );
+        
+        // request for a sample
+        if(!empty($this->data['Request a sample'])) {
+            $request_sample = $this->data['Request a sample'];
+            $request_sample_value = $request_sample == 'Enabled' ? '1' : '0';
+            rwmb_set_meta( $this->post_id, 'checkbox_request_sample', $request_sample_value );
+        }
+    
+        if(!empty($this->data['Technical Guides'])) {
+            $technical_guides = $this->data['Technical Guides'];
+            $technical_guides_value = $technical_guides == 'Enabled' ? '1' : '0';
+            rwmb_set_meta( $this->post_id, 'checkbox_tech_guides', $technical_guides_value );
+        }
+        
+        
 
-        //set brand relationship
+        // get the current brand relationship
+        $previous_linked_brands  = new \WP_Query( [
+            'relationship' => [
+                'id' => 103,
+                'from' => $this->post_id,
+            ],
+        ] );
+
+        while ( $previous_linked_brands->have_posts() ) : $previous_linked_brands->the_post();
+
+            // Display connected pages
+            foreach ( $previous_linked_brands->posts as $p ) :
+                MB_Relationships_API::delete( $this->post_id, $p->ID, 103);
+            endforeach;
+        endwhile;
+        
+        //set nwe brand relationship
         MB_Relationships_API::add( $this->post_id, $this->data['Brand'], 103, 1, 1 );
 
         //set the features
@@ -233,16 +264,35 @@ Class Master{
      * @return void
      */
     public function setCategory(){
-        
+    
         $taxonomy = "product-category";
         $terms = array();
-
-        array_push($terms, $this->data['Primary category']);
-
-        array_push($terms,explode("|",$this->data['Secondary category']));
         
+        // check if the primary category is set, if it is then update the terms array
+        if(!empty($this->data['Primary Category'])) {
+            $primary_category_id = $this->data['Primary Category'];
+            
+            $check_term = get_term_by('term_id', $primary_category_id, $taxonomy);
+            if(!is_wp_error($check_term)) {
+                array_push($terms, $primary_category_id);
+            }
+        }
+    
+        // check if the secondary category is set, if it is then update the terms array
+        if(!empty($this->data['Secondary category'])) {
+            $secondary_categories = $this->data['Secondary category'];
+            
+            $secondary_categories = (array) explode("|", $secondary_categories);
+            
+            foreach ($secondary_categories as $secondary_category) {
+                $check_term = get_term_by('term_id', $secondary_category, $taxonomy);
+                if(!is_wp_error($check_term)) {
+                    array_push($terms, $secondary_category);
+                }
+            }
+        }
+    
         wp_set_post_terms( $this->post_id, $terms, $taxonomy );
-        
     }
 
 

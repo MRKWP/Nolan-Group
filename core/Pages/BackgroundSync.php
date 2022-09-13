@@ -1,9 +1,9 @@
 <?php
 /**
  * Sync Start page in Admin UI
- * 
+ *
  * Do the CSV Import for Nolan Group
- * 
+ *
  * @package  Nolan_Group
  */
 namespace Nolan_Group\Pages;
@@ -41,9 +41,9 @@ class BackgroundSync {
 
         do_action('get_all_product_process_hook');
 
-        do_action('get_all_product_images_process_hook');
+//        do_action('get_all_product_images_process_hook');
 
-        do_action('get_all_product_swatch_process_hook');
-        
+//        do_action('get_all_product_swatch_process_hook');
+    
     }
 }

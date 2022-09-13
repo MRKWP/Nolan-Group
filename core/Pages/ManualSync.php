@@ -1,9 +1,9 @@
 <?php
 /**
  * Sync Start page in Admin UI
- * 
+ *
  * Do the CSV Import for Nolan Group
- * 
+ *
  * @package  Nolan_Group
  */
 namespace Nolan_Group\Pages;
@@ -42,7 +42,7 @@ class ManualSync {
         $upload_dir   = wp_upload_dir();
 
         //load the CSV document from a file path
-        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'products.csv', 'r');
+        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'products-sample.csv', 'r');
         $csv->setHeaderOffset(0);
 
         $header = $csv->getHeader(); //returns the CSV header record

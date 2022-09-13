@@ -18,8 +18,7 @@ final class Init
 			PostTypes\Guides::class,
 			PostTypes\CaseStudies::class,
 			PostTypes\Brochures::class,
-   
-//            Filters\ActionScheduler::class,
+            
             Filters\Links::class,
             Filters\Breadcrumbs ::class,
             Filters\Paginations::class,

@@ -176,8 +176,7 @@ Class Master{
         ] );
 
         while ( $previous_linked_brands->have_posts() ) : $previous_linked_brands->the_post();
-
-            // Display connected pages
+            // Loop through and delete all existing relationships
             foreach ( $previous_linked_brands->posts as $p ) :
                 MB_Relationships_API::delete( $this->post_id, $p->ID, 103);
             endforeach;

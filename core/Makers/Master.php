@@ -164,8 +164,6 @@ Class Master{
             $technical_guides_value = $technical_guides == 'Enabled' ? '1' : '0';
             rwmb_set_meta( $this->post_id, 'checkbox_tech_guides', $technical_guides_value );
         }
-        
-        
 
         // get the current brand relationship
         $previous_linked_brands  = new \WP_Query( [

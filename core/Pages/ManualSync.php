@@ -1,9 +1,9 @@
 <?php
 /**
  * Sync Start page in Admin UI
- * 
+ *
  * Do the CSV Import for Nolan Group
- * 
+ *
  * @package  Nolan_Group
  */
 namespace Nolan_Group\Pages;

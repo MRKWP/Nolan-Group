@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ## Changelog
 
+### 1.1.12
+- Fix bugs that occurred during product imports - product items, swatches and images.
+
 ### 1.1.11
 - Fix primary and secondary category
 

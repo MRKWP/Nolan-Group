@@ -1,7 +1,7 @@
 <?php
 /**
  * Make a product entry
- * 
+ *
  * @package  Nolan_group
  */
 namespace Nolan_Group\Makers;
@@ -33,7 +33,7 @@ Class Swatch{
 
     /**
      * does this object need to be processed?
-     * 
+     *
      * @var bool true when we should update
      */
     public $process_req = false;
@@ -117,7 +117,7 @@ Class Swatch{
 
         //We found posts and need to do an update
         if( $the_query->have_posts() ):
-            while ( $the_query->have_posts() ) : 
+            while ( $the_query->have_posts() ) :
                 $the_query->the_post();
                 $this->post_id = $the_query->post->ID;
             endwhile;
@@ -151,9 +151,20 @@ Class Swatch{
         $swatch['id']           =   $this->data['Wordpress Swatch ID'];
         $swatch['swatch_name']  =   $this->data['Colour Name'];
         $swatch['swatch_color'] =   $this->data['Colour Family'];
-
-        //add new post meta
-        add_post_meta( $this->post_id, 'swatch', $swatch, false );
+        
+        $saved_swatches = get_post_meta($this->post_id, 'swatch');
+        if(!empty($saved_swatches)) {
+            foreach ($saved_swatches as $key => $saved_swatch) {
+                
+                if($saved_swatch['id'] == $swatch['id']) {
+                    update_post_meta( $this->post_id, 'swatch', $swatch );
+                } else {
+                    add_post_meta( $this->post_id, 'swatch', $swatch, false );
+                }
+            }
+        } else {
+            add_post_meta( $this->post_id, 'swatch', $swatch, false );
+        }
 
         //Finished.
     }

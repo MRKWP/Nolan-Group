@@ -1,7 +1,7 @@
 <?php
 /**
  * Make a product entry
- * 
+ *
  * @package  Nolan_group
  */
 namespace Nolan_Group\Makers;
@@ -33,7 +33,7 @@ Class ImageGallery{
 
     /**
      * does this object need to be processed?
-     * 
+     *
      * @var bool true when we should update
      */
     public $process_req = false;
@@ -117,7 +117,7 @@ Class ImageGallery{
 
         //We found posts and need to do an update
         if( $the_query->have_posts() ):
-            while ( $the_query->have_posts() ) : 
+            while ( $the_query->have_posts() ) :
                 $the_query->the_post();
                 $this->post_id = $the_query->post->ID;
             endwhile;
@@ -144,10 +144,10 @@ Class ImageGallery{
     /**
      * Update Image Field for Gallery
      */
-    public function updateData(){
+    public function updateData() {
 
         //Process images
-        if(!empty($this->data['Gallery 1'])){
+        if(!empty($this->data['Gallery 1'])) {
             $attachment_id_1 = $this->processImage($this->data['Gallery 1']);
             delete_post_meta($this->post_id, 'gallery_images', $attachment_id_1);
             add_post_meta( $this->post_id, 'gallery_images', $attachment_id_1, false );
@@ -214,7 +214,7 @@ Class ImageGallery{
     /**
      * Process a search for uploaded images
      *
-     * @return void
+     * @return int
      */
     public function processImage($image){
 
@@ -227,7 +227,7 @@ Class ImageGallery{
                     //Get the attachment if it already exists
                     $attachment_id = $this->MediaFileAlreadyExists($image);
 
-                    if(!$attachment_id){
+                    if(!$attachment_id) {
 
                         //Create an image URL to pull the image into the media library
                         $image_url = $this->upload_url.'/gallery-images'.'/'.$image;

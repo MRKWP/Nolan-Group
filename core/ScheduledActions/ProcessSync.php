@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package  Simpleview_Listings
  */
@@ -34,7 +34,7 @@ class ProcessSync{
     public $allActionGroup                = 'all_nolangroup_sync';
 
     public function __construct() {
-
+        
         add_action( $this->productHook, [$this, 'runSingleProductHook'] );
 
         add_action( $this->addProductHook, [$this, 'addSingleProductHook'], 0 , 1 );
@@ -63,11 +63,11 @@ class ProcessSync{
 
     /**
      * Hooked action to run the CSV Process hook.
-     * 
+     *
      * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
-     * 
+     *
      * Triggers a DO ACTION on the run single product hook for each item in the CSV
-     * 
+     *
      * @param [type] $data
      * @return void
      */
@@ -98,11 +98,11 @@ class ProcessSync{
 
     /**
      * Hooked action to run the CSV Process hook.
-     * 
+     *
      * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
-     * 
+     *
      * Triggers a DO ACTION on the run single product hook for each item in the CSV
-     * 
+     *
      * @param [type] $data
      * @return void
      */
@@ -116,8 +116,11 @@ class ProcessSync{
         $csv->setHeaderOffset(0);
         
         $header = $csv->getHeader(); //returns the CSV header record
-                
+        
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+    
+        // delete all gallery_images meta field
+        $this->deleteAllMetaFields($records, 'gallery_images');
         
         foreach ($records as $record) {
             if(!empty($record['Reference ID'])){
@@ -132,11 +135,11 @@ class ProcessSync{
 
     /**
      * Hooked action to run the CSV Process hook.
-     * 
+     *
      * This process imports all items from all CSV Files for Products, Product Galleries and Product Swatches
-     * 
+     *
      * Triggers a DO ACTION on the run single product hook for each item in the CSV
-     * 
+     *
      * @param [type] $data
      * @return void
      */
@@ -150,8 +153,11 @@ class ProcessSync{
         $csv->setHeaderOffset(0);
         
         $header = $csv->getHeader(); //returns the CSV header record
-                
+        
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+        
+        // delete all swatch meta fields
+        $this->deleteAllMetaFields($records, 'swatch');
         
         foreach ($records as $record) {
             if(!empty($record['Product ID'])){
@@ -357,7 +363,7 @@ class ProcessSync{
 
         //We found posts and need to do an update
         if( $the_query->have_posts() ):
-            while ( $the_query->have_posts() ) : 
+            while ( $the_query->have_posts() ) :
                 $the_query->the_post();
                 $post_id = $the_query->post->ID;
             endwhile;
@@ -369,4 +375,46 @@ class ProcessSync{
 
         return false;
     }
+    
+    
+    /**
+     * Delete all previously added product swatches before running the import, fixes duplication of product swatches
+     *
+     * @param $records
+     */
+    public function deleteAllMetaFields($records, $meta_key = 'swatch') {
+        foreach ($records as $record) {
+            // product id for some csv and reference id for other csv
+            if(!empty($record['Product ID']) || !empty($record['Reference ID'])){
+                $data['record'] = $record;
+        
+                $external_product_id = $data['record']['Product ID'];
+                
+                if(!empty($data['record']['Reference ID'])) {
+                    $external_product_id = $data['record']['Reference ID'];
+                }
+    
+                $args = array(
+                    'numberposts'	=> 1,
+                    'post_type'		=> 'nolan-product',
+                    'meta_key'		=> 'nolan_external_id',
+                    'meta_value'    => $external_product_id,
+                    'compare'       => '='
+                );
+    
+                // query the item
+                $the_query = new WP_Query( $args );
+    
+                //We found posts and need to do an update
+                if( $the_query->have_posts() ):
+                    while ( $the_query->have_posts() ) :
+                        $the_query->the_post();
+                        $post_id = $the_query->post->ID;
+                        delete_post_meta($post_id, $meta_key);
+                    endwhile;
+                endif;
+            }
+        }
+    }
+    
 }

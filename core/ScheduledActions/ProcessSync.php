@@ -118,6 +118,9 @@ class ProcessSync{
         $header = $csv->getHeader(); //returns the CSV header record
         
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+    
+        // delete all gallery_images meta field
+        $this->deleteAllMetaFields($records, 'gallery_images');
         
         foreach ($records as $record) {
             if(!empty($record['Reference ID'])){
@@ -153,8 +156,8 @@ class ProcessSync{
         
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         
-        // delete all swatch
-        $this->deleteAllSwatches($records);
+        // delete all swatch meta fields
+        $this->deleteAllMetaFields($records, 'swatch');
         
         foreach ($records as $record) {
             if(!empty($record['Product ID'])){
@@ -379,12 +382,17 @@ class ProcessSync{
      *
      * @param $records
      */
-    public function deleteAllSwatches($records) {
+    public function deleteAllMetaFields($records, $meta_key = 'swatch') {
         foreach ($records as $record) {
-            if(!empty($record['Product ID'])){
+            // product id for some csv and reference id for other csv
+            if(!empty($record['Product ID']) || !empty($record['Reference ID'])){
                 $data['record'] = $record;
         
                 $external_product_id = $data['record']['Product ID'];
+                
+                if(!empty($data['record']['Reference ID'])) {
+                    $external_product_id = $data['record']['Reference ID'];
+                }
     
                 $args = array(
                     'numberposts'	=> 1,
@@ -402,10 +410,11 @@ class ProcessSync{
                     while ( $the_query->have_posts() ) :
                         $the_query->the_post();
                         $post_id = $the_query->post->ID;
-                        delete_post_meta($post_id, 'swatch');
+                        delete_post_meta($post_id, $meta_key);
                     endwhile;
                 endif;
             }
         }
     }
+    
 }

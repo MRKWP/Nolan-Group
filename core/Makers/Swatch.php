@@ -151,20 +151,8 @@ Class Swatch{
         $swatch['id']           =   $this->data['Wordpress Swatch ID'];
         $swatch['swatch_name']  =   $this->data['Colour Name'];
         $swatch['swatch_color'] =   $this->data['Colour Family'];
-        
-        $saved_swatches = get_post_meta($this->post_id, 'swatch');
-        if(!empty($saved_swatches)) {
-            foreach ($saved_swatches as $key => $saved_swatch) {
-                
-                if($saved_swatch['id'] == $swatch['id']) {
-                    update_post_meta( $this->post_id, 'swatch', $swatch );
-                } else {
-                    add_post_meta( $this->post_id, 'swatch', $swatch, false );
-                }
-            }
-        } else {
-            add_post_meta( $this->post_id, 'swatch', $swatch, false );
-        }
+    
+        add_post_meta( $this->post_id, 'swatch', $swatch, false );
 
         //Finished.
     }

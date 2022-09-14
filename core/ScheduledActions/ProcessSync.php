@@ -146,12 +146,15 @@ class ProcessSync{
         $upload_dir   = wp_upload_dir();
 
         //load the CSV document from a file path
-        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'product-swatches.csv', 'r');
+        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'product-swatches-sample.csv', 'r');
         $csv->setHeaderOffset(0);
         
         $header = $csv->getHeader(); //returns the CSV header record
         
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+        
+        // delete all swatch
+        $this->deleteAllSwatches($records);
         
         foreach ($records as $record) {
             if(!empty($record['Product ID'])){
@@ -368,5 +371,41 @@ class ProcessSync{
         endif;
 
         return false;
+    }
+    
+    
+    /**
+     * Delete all previously added product swatches before running the import, fixes duplication of product swatches
+     *
+     * @param $records
+     */
+    public function deleteAllSwatches($records) {
+        foreach ($records as $record) {
+            if(!empty($record['Product ID'])){
+                $data['record'] = $record;
+        
+                $external_product_id = $data['record']['Product ID'];
+    
+                $args = array(
+                    'numberposts'	=> 1,
+                    'post_type'		=> 'nolan-product',
+                    'meta_key'		=> 'nolan_external_id',
+                    'meta_value'    => $external_product_id,
+                    'compare'       => '='
+                );
+    
+                // query the item
+                $the_query = new WP_Query( $args );
+    
+                //We found posts and need to do an update
+                if( $the_query->have_posts() ):
+                    while ( $the_query->have_posts() ) :
+                        $the_query->the_post();
+                        $post_id = $the_query->post->ID;
+                        delete_post_meta($post_id, 'swatch');
+                    endwhile;
+                endif;
+            }
+        }
     }
 }

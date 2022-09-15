@@ -80,7 +80,7 @@ class Products
      * @return void
      */
     public function hide_sidebar_on_product_archive( $post_object ) {
-        if( is_post_type_archive('nolan-product') ) {
+        if( is_post_type_archive('nolan-product') || is_tax('product-category', 'outdoor-blind-system') ) {
             add_filter('blocksy:general:sidebar-position', function ($current_value) {
                 return 'none';
             });

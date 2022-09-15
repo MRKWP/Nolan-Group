@@ -13,6 +13,7 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ### 1.1.12
 - Fix bugs that occurred during product imports - product items, swatches and images.
+- Hide sidebar for certain product taxonomy terms.
 
 ### 1.1.11
 - Fix primary and secondary category

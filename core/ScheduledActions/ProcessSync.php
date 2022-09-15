@@ -159,6 +159,9 @@ class ProcessSync{
         // delete all swatch meta fields
         $this->deleteAllMetaFields($records, 'swatch');
         
+        // delete all tile color meta fields
+        $this->deleteAllMetaFields($records, 'product_tile_color');
+        
         foreach ($records as $record) {
             if(!empty($record['Product ID'])){
                 $data['record'] = $record;

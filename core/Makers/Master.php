@@ -151,6 +151,7 @@ Class Master{
         rwmb_set_meta( $this->post_id, 'width', $this->data['Width - CM'] );
         rwmb_set_meta( $this->post_id, 'weight', $this->data['Weight - GSM'] );
         rwmb_set_meta( $this->post_id, 'roll_length', $this->data['Roll Length - M'] );
+        rwmb_set_meta( $this->post_id, 'size_mm', $this->data['Size - MM'] );
         
         // request for a sample
         if(!empty($this->data['Request a sample'])) {

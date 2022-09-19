@@ -157,13 +157,10 @@ Class Swatch{
         // update the color
         $swatch['product_tile_color'] = $this->data['Colour Family'];
         $previous_value = (array) get_post_meta($this->post_id, 'product_tile_color');
-        if(!empty($this->data['Colour Family'])) {
-            update_post_meta( $this->post_id, 'product_tile_color', $this->data['Colour Family'], $previous_value);
+        if(!empty($this->data['Colour Family']) && !in_array($this->data['Colour Family'], $previous_value)) {
+            array_push($previous_value, $this->data['Colour Family']);
+            add_post_meta( $this->post_id, 'product_tile_color', $this->data['Colour Family']);
         }
-//        if(! empty( $previous_value ) && ! empty ( $this->data['Colour Family'] )) {
-//            array_push($previous_value, $this->data['Colour Family']);
-//            update_post_meta( $this->post_id, 'product_tile_color', array_filter($previous_value));
-//        }
 
         //Finished.
     }

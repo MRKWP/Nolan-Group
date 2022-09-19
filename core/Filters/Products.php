@@ -18,7 +18,6 @@ class Products
 		add_filter( 'post_type_link', [ $this, 'modify_nolan_product_permalink' ], 8, 2 );
 //		add filter that hides the sidebar on product archive page
         add_filter('the_post', [$this,'hide_sidebar_on_product_archive']);
-        do_action('qm/debug', get_post_meta(8670, 'product_tile_color', true));
     }
 
 

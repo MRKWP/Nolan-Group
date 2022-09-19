@@ -181,7 +181,7 @@ Class Master{
             endforeach;
         endwhile;
         
-        //set nwe brand relationship
+        //set new brand relationship
         MB_Relationships_API::add( $this->post_id, $this->data['Brand'], 103, 1, 1 );
 
         //set the features
@@ -198,17 +198,19 @@ Class Master{
         }
         
         //set the technical spec
-        $techspecs = explode("|",$this->data['Technical Specifications']);
-        
-        $techitems = array();
-
-        if(is_array($techspecs)){
+        if(!empty($this->data['Technical Specifications'])) {
+            $techspecs = (array) explode("|",$this->data['Technical Specifications']);
             
-            foreach($techspecs as $techspec){
-                array_push($techitems, array(0=>$techspec));
+            $techitems = array();
+    
+            if(is_array($techspecs)) {
+        
+                foreach($techspecs as $techspec){
+                    array_push($techitems, array(0 => $techspec));
+                }
+        
+                rwmb_set_meta( $this->post_id, 'technical_specifications', $techitems );
             }
-
-            rwmb_set_meta( $this->post_id, 'technical_specifications', $techitems );
         }
 
         //Publish the post

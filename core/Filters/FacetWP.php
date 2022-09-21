@@ -15,27 +15,16 @@ class FacetWP
      */
     public function register() {
         add_filter( 'facetwp_template_force_load', '__return_true');
-        add_action( 'wp_footer', [$this, 'facetwp_refreshing']);
         add_filter( 'pre_get_posts', [$this, 'apply_facet_filter']);
         add_filter( 'paginate_links_output', [$this, 'paginated_links_output'], 10, 2);
         add_filter( 'facetwp_filtered_query_args', [$this, 'modify_posts_per_page'], 10, 2);
     }
     
-    
-    public function facetwp_refreshing() {
-        ob_start();
-        ?>
-        <script>
-            document.addEventListener('facetwp-refresh', function() {
-                console.log(FWP);
-            });
-        </script>
-        <?php
-        
-        echo ob_get_clean();
-    }
-    
-    
+    /**
+     * Hook into pre get posts to apply custom facet filters for brands
+     *
+     * @param $query
+     */
     public function apply_facet_filter($query) {
         if ( ! empty($_GET['_brands_product_categories'])) {
             $brands_product_categories = explode(',', $_GET['_brands_product_categories']);
@@ -76,7 +65,13 @@ class FacetWP
         }
     }
     
-    
+    /**
+     * Modify facetwp paginated links on brochures archive page
+     *
+     * @param $r
+     * @param $args
+     * @return mixed|string
+     */
     public function paginated_links_output($r, $args) {
       if(is_post_type_archive('brochures')) {
         $pager_shortcode = do_shortcode('[facetwp facet="nolan_facetwp_pager"]');
@@ -91,7 +86,13 @@ class FacetWP
       return $r;
     }
     
-    
+    /**
+     * Modify default facetwp posts per page used in pagination
+     *
+     * @param $query_args
+     * @param $_this
+     * @return mixed
+     */
     public function modify_posts_per_page( $query_args, $_this ) {
         $query_args['posts_per_page'] = (int) get_option('posts_per_page');
         

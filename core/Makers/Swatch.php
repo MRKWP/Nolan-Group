@@ -137,29 +137,33 @@ Class Swatch{
     public function updateData(){
 
         //Process images
-        if(!empty($this->data['File Path'])){
-            if (str_contains($this->data['File Path'], 'http')) {
-                
-                $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
-                $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
+//        if(!empty($this->data['File Path'])){
+//            if (str_contains($this->data['File Path'], 'http')) {
+//
+//                $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
+//                $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
+//
+//            }else{
+//                $swatch['swatch_image'] = $this->processImage($this->data['File Path'], false, "Local File");
+//            }
+//        }
 
-            }else{
-                $swatch['swatch_image'] = $this->processImage($this->data['File Path'], false, "Local File");
-            }
-        }
+//        $swatch['id']           =   $this->data['Wordpress Swatch ID'];
+//        $swatch['swatch_name']  =   $this->data['Colour Name'];
+//        $swatch['swatch_color'] =   $this->data['Colour Family'];
+//
+//        add_post_meta( $this->post_id, 'swatch', $swatch, false );
         
-        $swatch['id']           =   $this->data['Wordpress Swatch ID'];
-        $swatch['swatch_name']  =   $this->data['Colour Name'];
-        $swatch['swatch_color'] =   $this->data['Colour Family'];
-    
-        add_post_meta( $this->post_id, 'swatch', $swatch, false );
-    
-        // update the color
-        $swatch['product_tile_color'] = $this->data['Colour Family'];
-        $previous_value = (array) get_post_meta($this->post_id, 'product_tile_color');
-        if(!empty($this->data['Colour Family']) && !in_array($this->data['Colour Family'], $previous_value)) {
-            array_push($previous_value, $this->data['Colour Family']);
-            add_post_meta( $this->post_id, 'product_tile_color', $this->data['Colour Family']);
+        $saved_swatches = get_post_meta( $this->post_id, 'swatch');
+        
+        foreach($saved_swatches as $saved_swatch) {
+            $swatch_color =  $saved_swatch['swatch_color'];
+            
+            $previous_value = (array) get_post_meta($this->post_id, 'product_tile_color');
+            if(!empty($swatch_color) && !in_array($swatch_color, $previous_value)) {
+                array_push($previous_value, $swatch_color);
+                add_post_meta( $this->post_id, 'product_tile_color', $swatch_color);
+            }
         }
 
         //Finished.

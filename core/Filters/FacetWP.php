@@ -18,6 +18,7 @@ class FacetWP
         add_action( 'wp_footer', [$this, 'facetwp_refreshing']);
         add_filter( 'pre_get_posts', [$this, 'apply_facet_filter']);
         add_filter( 'paginate_links_output', [$this, 'paginated_links_output'], 10, 2);
+        add_filter( 'facetwp_filtered_query_args', [$this, 'modify_posts_per_page'], 10, 2);
     }
     
     
@@ -84,14 +85,17 @@ class FacetWP
         $new_paginated_links .= $pager_shortcode;
         $new_paginated_links .= '</div>';
         
-        var_dump($r);
-        
         return $new_paginated_links.$r;
       }
       
-      var_dump($r);
-      
       return $r;
+    }
+    
+    
+    public function modify_posts_per_page( $query_args, $_this ) {
+        $query_args['posts_per_page'] = (int) get_option('posts_per_page');
+        
+        return $query_args;
     }
     
     /**

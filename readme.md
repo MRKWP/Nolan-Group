@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ## Changelog
 
+### 1.1.13
+- Fix FacetWP Pager Load More Button tos display the posts per page set from WordPress settings.
+
 ### 1.1.12
 - Fix bugs that occurred during product imports - product items, swatches and images.
 - Hide sidebar for certain product taxonomy terms.

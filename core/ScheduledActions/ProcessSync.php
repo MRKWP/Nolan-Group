@@ -157,7 +157,7 @@ class ProcessSync{
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         
         // delete all swatch meta fields
-        $this->deleteAllMetaFields($records, 'swatch');
+//        $this->deleteAllMetaFields($records, 'swatch');
         
         // delete all tile color meta fields
         $this->deleteAllMetaFields($records, 'product_tile_color');
@@ -167,9 +167,10 @@ class ProcessSync{
                 $data['record'] = $record;
 
                 //clear the swatches for the updated product ID
-                if($this->clearswatch($data['record']['Product ID'])){
-                    do_action('run_single_product_swatch_hook', $data);
-                };
+                do_action('run_single_product_swatch_hook', $data);
+//                if($this->clearswatch($data['record']['Product ID'])){
+//                    do_action('run_single_product_swatch_hook', $data);
+//                };
             }
         }
         

@@ -136,10 +136,10 @@ Class Master{
      */
     public function updateData(){
 
-        //Process Featured Image
+        // Process Featured Image
         $this->processThumb();
 
-        //Set the Catagory
+        // Set the Catagory
         $this->setCategory();
 
         //Set meta fields that are one to one
@@ -159,14 +159,14 @@ Class Master{
             $request_sample_value = $request_sample == 'Enabled' ? '1' : '0';
             rwmb_set_meta( $this->post_id, 'checkbox_request_sample', $request_sample_value );
         }
-    
+
         if(!empty($this->data['Technical Guides'])) {
             $technical_guides = $this->data['Technical Guides'];
             $technical_guides_value = $technical_guides == 'Enabled' ? '1' : '0';
             rwmb_set_meta( $this->post_id, 'checkbox_tech_guides', $technical_guides_value );
         }
 
-        // get the current brand relationship
+        //get the current brand relationship
         $previous_linked_brands  = new \WP_Query( [
             'relationship' => [
                 'id' => 103,
@@ -180,7 +180,7 @@ Class Master{
                 MB_Relationships_API::delete( $this->post_id, $p->ID, 103);
             endforeach;
         endwhile;
-        
+
         //set new brand relationship
         MB_Relationships_API::add( $this->post_id, $this->data['Brand'], 103, 1, 1 );
 
@@ -196,19 +196,19 @@ Class Master{
 
             rwmb_set_meta( $this->post_id, 'features_and_benefits', $featureitems );
         }
-        
+
         //set the technical spec
         if(!empty($this->data['Technical Specifications'])) {
             $techspecs = (array) explode("|",$this->data['Technical Specifications']);
-            
+
             $techitems = array();
-    
+
             if(is_array($techspecs)) {
-        
+
                 foreach($techspecs as $techspec){
                     array_push($techitems, array(0 => $techspec));
                 }
-        
+
                 rwmb_set_meta( $this->post_id, 'technical_specifications', $techitems );
             }
         }

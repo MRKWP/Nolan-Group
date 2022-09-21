@@ -19,6 +19,24 @@ class CategorySideBar {
      */
     public function register() {
         add_filter('pre_get_posts', [$this,'turn_off_side']);
+        add_action('blocksy:hero:after', [$this, 'add_mobile_filter_button']);
+    }
+    
+    
+    public function add_mobile_filter_button() {
+        if(is_tax('product-category')) {
+          
+          ob_start();
+            ?>
+            <div class="ct-container">
+                <div class="nolan-group-mobile_filter">
+                    <button onclick=""><?php echo __('Open Filter', 'nolan-group') ?></button>
+                </div>
+            </div>
+            <?php
+            
+            echo ob_get_clean();
+        }
     }
 
     /**

@@ -32,7 +32,7 @@ class ProductCarousel extends BaseController {
         global $post;
     
         $attr = wp_parse_args($attr, [
-            'number'  => 5,
+            'number'  => 12,
             'brand'  => '',
             'category'  => 0,
         ]);
@@ -63,7 +63,6 @@ class ProductCarousel extends BaseController {
                         'id'   => '103',
                         'to' => $brand->ID,
                     ],
-                'nopaging'     => true,
             ];
         }
         
@@ -73,6 +72,8 @@ class ProductCarousel extends BaseController {
         wp_enqueue_script( 'nolan-group-library-swiper-bundle', $this->plugin_url.'/assets/src/js/swiper-bundle.min.js', [], NOLAN_GROUP_LIBRARY_VERSION);
         wp_enqueue_style( 'nolan-group-library-swiper-bundle', $this->plugin_url.'/assets/src/css/swiper-bundle.min.css', [], NOLAN_GROUP_LIBRARY_VERSION);
         wp_enqueue_script( 'nolan-group-library-product-carousel', $this->plugin_url.'/assets/src/js/carousel.js', ['nolan-group-library-swiper-bundle'], NOLAN_GROUP_LIBRARY_VERSION);
+        
+        $total_posts = $results->found_posts;
         
         if(!$results->have_posts())  return 'No Products found for this selection.';
         
@@ -108,6 +109,17 @@ class ProductCarousel extends BaseController {
         $post_list_formatted .= '</div>';
         $post_list_formatted .= '<div class="nolan-group-pagination swiper-pagination"></div>';
         $post_list_formatted .= '</div>';
+        
+        
+        if($total_posts > 12) {
+            $product_taxonomy = get_the_terms(get_the_ID(), 'product-category');
+            if(!empty($product_taxonomy[0])) {
+                $term_link = get_term_link($product_taxonomy[0]->term_id);
+                $post_list_formatted .= '<div class="nolan-group-see-more-button wp-block-button">';
+                $post_list_formatted .= sprintf('<a class="wp-block-button__link" href="%s" title="%s">%s</a>', $term_link, $product_taxonomy[0]->name, __('See more', 'nolan-group'));
+                $post_list_formatted .= '</div>';
+            }
+        }
         
         return $post_list_formatted;
     }

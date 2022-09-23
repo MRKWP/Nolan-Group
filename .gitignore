@@ -2,3 +2,4 @@
 /vendor/
 /lib/
 .DS_Store
+yarn.lock

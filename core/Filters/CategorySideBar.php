@@ -29,9 +29,13 @@ class CategorySideBar {
      */
     public function turn_off_side( $query ) {
 
-        if($query->is_tax( 'product-category' )){
+        if($query->is_tax( 'product-category' )) {
+    
+            $this_term = get_queried_object();
+    
+            $get_active_filters  = rwmb_meta( 'turn_on_off_filter_types',['object_type' => 'term'], $this_term->term_id );
             
-            if (in_array($query->query['product-category'], $this->categories)){
+            if (in_array($query->query['product-category'], $this->categories) || empty( $get_active_filters )){
                 add_filter('blocksy:general:sidebar-position', function ($current_value) {
                     return 'none';
                 });

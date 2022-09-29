@@ -18,6 +18,9 @@ class Products
 		add_filter( 'post_type_link', [ $this, 'modify_nolan_product_permalink' ], 8, 2 );
 //		add filter that hides the sidebar on product archive page
         add_filter('the_post', [$this,'hide_sidebar_on_product_archive']);
+        
+        //add filter to sort products in alphabetical order
+        add_action('pre_get_posts', [$this, 'sort_products_alphabetically']);
     }
 
 
@@ -80,10 +83,27 @@ class Products
      * @return void
      */
     public function hide_sidebar_on_product_archive( $post_object ) {
+        // check if the current page is a nolan product archive page or the product category is outdoor blind system
         if( is_post_type_archive('nolan-product') || is_tax('product-category', 'outdoor-blind-system') ) {
             add_filter('blocksy:general:sidebar-position', function ($current_value) {
                 return 'none';
             });
         }
+    }
+    
+    /**
+     * sort products in alphabetical order
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function sort_products_alphabetically($query) {
+        // check if the current page is not an admin and the post_type is nolan-product
+        if ( ! is_admin() &&  $query->get('post_type') === 'nolan-product' ) {
+            $query->set( 'orderby', 'title' );
+            $query->set( 'order', 'ASC' );
+        }
+        
+        return $query;
     }
 }

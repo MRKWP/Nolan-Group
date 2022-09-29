@@ -99,7 +99,7 @@ class Products
      */
     public function sort_products_alphabetically($query) {
         // check if the current page is not an admin and the post_type is nolan-product
-        if ( ! is_admin() &&  $query->get('post_type') === 'nolan-product' ) {
+        if ( ! is_admin() && is_tax('product-category') ) {
             $query->set( 'orderby', 'title' );
             $query->set( 'order', 'ASC' );
         }

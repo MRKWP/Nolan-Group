@@ -137,22 +137,22 @@ Class Swatch{
     public function updateData(){
 
         //Process images
-//        if(!empty($this->data['File Path'])){
-//            if (str_contains($this->data['File Path'], 'http')) {
-//
-//                $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
-//                $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
-//
-//            }else{
-//                $swatch['swatch_image'] = $this->processImage($this->data['File Path'], false, "Local File");
-//            }
-//        }
+        if(!empty($this->data['File Path'])){
+            if (str_contains($this->data['File Path'], 'http')) {
 
-//        $swatch['id']           =   $this->data['Wordpress Swatch ID'];
-//        $swatch['swatch_name']  =   $this->data['Colour Name'];
-//        $swatch['swatch_color'] =   $this->data['Colour Family'];
-//
-//        add_post_meta( $this->post_id, 'swatch', $swatch, false );
+                $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
+                $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
+
+            }else{
+                $swatch['swatch_image'] = $this->processImage($this->data['File Path'], false, "Local File");
+            }
+        }
+
+        $swatch['id']           =   $this->data['Wordpress Swatch ID'];
+        $swatch['swatch_name']  =   $this->data['Colour Name'];
+        $swatch['swatch_color'] =   $this->data['Colour Family'];
+
+        add_post_meta( $this->post_id, 'swatch', $swatch, false );
         
         $saved_swatches = get_post_meta( $this->post_id, 'swatch');
         

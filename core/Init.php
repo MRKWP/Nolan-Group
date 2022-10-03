@@ -13,6 +13,8 @@ final class Init
 	public static function get_services()
 	{
 		return [
+            Base\RegisterScripts::class,
+            
 			PostTypes\Products::class,
 			PostTypes\Brands::class,
 			PostTypes\Guides::class,
@@ -41,6 +43,8 @@ final class Init
 			Pages\BackgroundSync::class,
 
 			ScheduledActions\ProcessSync::class,
+            
+            Blocks\LightboxAddOn::class,
 		];
 	}
 

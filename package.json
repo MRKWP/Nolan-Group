@@ -15,6 +15,7 @@
     "start": "wp-scripts start"
   },
   "devDependencies": {
+    "@wordpress/scripts": "^23.7.2",
     "autoprefixer": "^10.2.5",
     "browser-sync": "^2.26.14",
     "cssnano": "^5.0.2",
@@ -27,5 +28,7 @@
     "defaults",
     "not IE 11"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "classnames": "^2.3.2"
+  }
 }

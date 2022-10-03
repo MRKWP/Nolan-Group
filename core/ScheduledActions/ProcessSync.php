@@ -167,10 +167,9 @@ class ProcessSync{
                 $data['record'] = $record;
 
                 //clear the swatches for the updated product ID
-                do_action('run_single_product_swatch_hook', $data);
-//                if($this->clearswatch($data['record']['Product ID'])){
-//                    do_action('run_single_product_swatch_hook', $data);
-//                };
+                if($this->clearswatch($data['record']['Product ID'])){
+                    do_action('run_single_product_swatch_hook', $data);
+                };
             }
         }
         

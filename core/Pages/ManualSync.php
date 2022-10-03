@@ -46,8 +46,6 @@ class ManualSync {
         $csv->setHeaderOffset(0);
 
         $header = $csv->getHeader(); //returns the CSV header record
-
-        print_r($header);
         
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
         

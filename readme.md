@@ -11,6 +11,9 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ## Changelog
 
+### 1.1.14
+- Extended core gallery gutenberg blocks to add lightbox to images. 
+
 ### 1.1.13
 - Fix FacetWP Pager Load More Button tos display the posts per page set from WordPress settings.
 

@@ -34,7 +34,7 @@ class BrandsFeatured extends BaseController {
         wp_enqueue_style( 'nolan-group-library-swiper-bundle', $this->plugin_url.'/assets/src/css/swiper-bundle.min.css', [], NOLAN_GROUP_LIBRARY_VERSION);
         wp_enqueue_script( 'nolan-group-library-product-carousel', $this->plugin_url.'/assets/src/js/carousel.js', ['nolan-group-library-swiper-bundle'], NOLAN_GROUP_LIBRARY_VERSION);
     
-        if(!$results->have_posts())  return 'No Featured Brands found for this selection.';
+        if(!$results->have_posts())  return sprintf('<p class="aligncenter">%s</p>', __('No Featured Brands found for this selection', 'nolan-group') );
         
         $results = $results->posts;
         $post_list_formatted = '<div class="nolan-group-carousel-contents-container">';

@@ -47,7 +47,7 @@ class TaxonomyIcon extends BaseController {
         $terms = get_terms($args);
     
         if(empty($terms)) {
-            return 'No terms found for this taxonomy';
+            return sprintf('<p class="aligncenter">%s</p>', __('No terms found for this taxonomy', 'nolan-group') );
         }
     
         wp_enqueue_style( 'nolan-group-library-taxonomy-icon', $this->plugin_url . '/assets/build/css/taxonomy-icon.css' );

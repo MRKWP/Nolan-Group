@@ -75,7 +75,7 @@ class ProductCarousel extends BaseController {
         
         $total_posts = $results->found_posts;
         
-        if(!$results->have_posts())  return 'No Products found for this selection.';
+        if(!$results->have_posts())  return sprintf('<p class="aligncenter">%s</p>', __('No Products found for this selection', 'nolan-group') );
         
         $results = $results->posts;
         $post_list_formatted = '<div class="nolan-group-carousel-contents swiper">';

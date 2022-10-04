@@ -1,3 +1,4 @@
+// this script dynamically loads the fs-lightbox attributes gotten from mrkwp-lightbox attributes
 const getAllMrkLightBoxes = document.querySelectorAll('mrkwp-lightbox');
 
 if(getAllMrkLightBoxes.length > 0) {
@@ -6,7 +7,6 @@ if(getAllMrkLightBoxes.length > 0) {
 
         let unique_id = getAllMrkLightBox.getAttribute('data-enable-mrk-lightbox-unique-id') || '';
 
-        let is_thumbnails_active = getAllMrkLightBox.getAttribute('data-mrk-lightbox-thumbnails');
         let img_alt = getAllMrkLightBox.getAttribute('data-mrk-lightbox-img-alt')
 
         // stop running when mrk lightbox is not active on this element
@@ -15,7 +15,10 @@ if(getAllMrkLightBoxes.length > 0) {
         let anchor_links = getAllMrkLightBox.querySelectorAll('a');
 
         //loop through the anchor links and set the data-fslightbox
-        anchor_links.forEach((anchor_link, index) => {
+        anchor_links.forEach((anchor_link) => {
+
+            // initialize the data-fslightbox attributes to the anchor tag set with unique id to identify the lightbox
+            anchor_link.setAttribute('data-fslightbox', unique_id);
 
             // if the anchor does not link to the image src, find the image src child of the anchor tag and set its value to the anchor href
             let image_el = anchor_link.querySelector('img');
@@ -32,8 +35,6 @@ if(getAllMrkLightBoxes.length > 0) {
                     anchor_link.setAttribute('data-alt', image_el_alt);
                 }
             }
-
-            anchor_link.setAttribute('data-mrklightbox', unique_id);
         })
     } )
 }

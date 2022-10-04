@@ -28,8 +28,8 @@ class RegisterScripts extends BaseController {
     public function enqueue_mrklightbox_frontend_assets() {
         // only enqueue when not in wordpress admin
         if( ! is_admin() ) {
-            wp_enqueue_script('nolan-group-mrk-lightbox-library-js', $this->plugin_url.'assets/src/js/mrklightbox-bundle.js', ['nolan-group-mrk-lightbox-front-js'], NOLAN_GROUP_LIBRARY_VERSION, true);
-            wp_enqueue_script('nolan-group-mrk-lightbox-front-js', $this->plugin_url.'assets/src/js/lightbox.js', [], NOLAN_GROUP_LIBRARY_VERSION, true);
+            wp_enqueue_script('nolan-group-mrk-lightbox-front', $this->plugin_url.'assets/src/js/lightbox.js', [], NOLAN_GROUP_LIBRARY_VERSION, true);
+            wp_enqueue_script( 'data-fslightbox',get_stylesheet_directory_uri().'/dist/js/fslightbox.js', ['nolan-group-mrk-lightbox-front'], NOLAN_GROUP_LIBRARY_VERSION, true);
         }
     }
     

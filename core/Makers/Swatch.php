@@ -139,18 +139,21 @@ Class Swatch{
         //Process images
         if(!empty($this->data['File Path'])){
             if (str_contains($this->data['File Path'], 'http')) {
-
+//                $image_url = $this->data['File Path'];
                 $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
                 $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
 
-            }else{
+            } else{
                 $swatch['swatch_image'] = $this->processImage($this->data['File Path'], false, "Local File");
             }
         }
+        
+//        print_r($swatch['swatch_image']);
 
         $swatch['id']           =   $this->data['Wordpress Swatch ID'];
         $swatch['swatch_name']  =   $this->data['Colour Name'];
         $swatch['swatch_color'] =   $this->data['Colour Family'];
+        
 
         add_post_meta( $this->post_id, 'swatch', $swatch, false );
         
@@ -186,12 +189,12 @@ Class Swatch{
         $image_file = $this->upload_dir.'swatch-images'.DIRECTORY_SEPARATOR.$image;
 
         //Check the files exists
-        if(file_exists($image_file)){
+        if( file_exists( $image_file ) ) {
 
             //Get the attachment if it already exists
             $attachment_id = $this->MediaFileAlreadyExists($image);
 
-            if(!$attachment_id){
+            if($attachment_id) {
 
                 //Create an image URL to pull the image into the media library
                 if(isset($image_url)){
@@ -200,6 +203,8 @@ Class Swatch{
 
                 //Set the featured image if we are getting the first image
                 $attachment_id = $this->beliefmedia_import_image($image_url, $image);
+                
+                print_r($attachment_id);
 
             }
 

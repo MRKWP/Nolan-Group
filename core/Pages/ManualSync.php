@@ -10,6 +10,7 @@ namespace Nolan_Group\Pages;
 
 use League\Csv\Reader;
 use Nolan_Group\Makers\Master;
+use Nolan_Group\ScheduledActions\ProcessSync;
 
 class ManualSync {
 
@@ -42,18 +43,24 @@ class ManualSync {
         $upload_dir   = wp_upload_dir();
 
         //load the CSV document from a file path
-        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'products.csv', 'r');
+        $csv = Reader::createFromPath($upload_dir['basedir'].DIRECTORY_SEPARATOR.'nolan-group-import'.DIRECTORY_SEPARATOR.'product-swatches.csv', 'r');
         $csv->setHeaderOffset(0);
 
         $header = $csv->getHeader(); //returns the CSV header record
         
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
+    
+        $process_sync = new ProcessSync();
+//        $process_sync->deleteAllMetaFields($records);
+
+//        $process_sync->deleteAllMetaFields($records, 'product_tile_color');
         
         foreach ($records as $record) {
             if(!empty($record['Product ID'])){
                 $data['record'] = $record;
-                print_r($record);
-                //do_action('run_single_product_hook', $data);
+//                $process_sync = new ProcessSync();
+//                $process_sync->addSingleProductSwatchHook($data);
+//                do_action('run_single_product_hook', $data);
                 die();
             }
         }

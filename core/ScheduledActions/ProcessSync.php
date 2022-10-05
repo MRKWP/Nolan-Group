@@ -155,9 +155,8 @@ class ProcessSync{
         $header = $csv->getHeader(); //returns the CSV header record
         
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
-        
-        // delete all swatch meta fields
-//        $this->deleteAllMetaFields($records, 'swatch');
+    
+        $this->deleteAllMetaFields($records);
         
         // delete all tile color meta fields
         $this->deleteAllMetaFields($records, 'product_tile_color');

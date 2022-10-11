@@ -137,7 +137,10 @@ Class Swatch{
     public function updateData(){
 
         //Process images
-        if(!empty($this->data['File Path'])){
+        if(!empty($this->data['File Path'])) {
+            $this->data['File Path'] = implode('|', $this->data['File Path']);
+            $this->data['File Path'] = $this->data['File Path'][0];
+            
             if (str_contains($this->data['File Path'], 'http')) {
 //                $image_url = $this->data['File Path'];
                 $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);

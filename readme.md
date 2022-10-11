@@ -13,6 +13,7 @@ Nolan Group Library for core functions on the site by MRKWP.com
 
 ### 1.1.15
 - Increase the number of products returned per page to 50 on product category page.
+- Sort Colour Swatches alphabetically
 
 ### 1.1.14
 - Extended core gallery gutenberg blocks to add lightbox to images. 

@@ -138,11 +138,11 @@ Class Swatch{
 
         //Process images
         if(!empty($this->data['File Path'])) {
-            $this->data['File Path'] = implode('|', $this->data['File Path']);
+            $this->data['File Path'] = explode('|', $this->data['File Path']);
             $this->data['File Path'] = $this->data['File Path'][0];
             
             if (str_contains($this->data['File Path'], 'http')) {
-//                $image_url = $this->data['File Path'];
+                
                 $image = str_replace("https://nolans.com.au/wp-content/uploads/","", $image_url);
                 $swatch['swatch_image'] = $this->processImage($image, true, $this->data['File Path']);
 
@@ -151,7 +151,6 @@ Class Swatch{
             }
         }
         
-//        print_r($swatch['swatch_image']);
 
         $swatch['id']           =   $this->data['Wordpress Swatch ID'];
         $swatch['swatch_name']  =   $this->data['Colour Name'];

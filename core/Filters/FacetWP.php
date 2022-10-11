@@ -94,7 +94,11 @@ class FacetWP
      * @return mixed
      */
     public function modify_posts_per_page( $query_args, $_this ) {
-        $query_args['posts_per_page'] = (int) get_option('posts_per_page');
+        $query_args['posts_per_page'] = get_option('posts_per_page');
+        
+        if( is_tax( 'product-category' ) ) {
+            $query_args['posts_per_page'] = 50;
+        }
         
         return $query_args;
     }

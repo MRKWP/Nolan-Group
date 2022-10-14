@@ -15,8 +15,10 @@ class Swatches
      */
     public function register()
     {
-        //sort filter swatches alphabetically
-        add_filter('rwmb_meta', [$this, 'sort_swatches_alphabetically'], 10, 4);
+        //sort filter swatches alphabetically - and only run this filter for non-admin pages
+        if(!is_admin()) {
+            add_filter('rwmb_meta', [$this, 'sort_swatches_alphabetically'], 10, 4);
+        }
         
     }
     

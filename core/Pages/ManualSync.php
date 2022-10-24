@@ -51,16 +51,16 @@ class ManualSync {
         $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
     
         $process_sync = new ProcessSync();
-//        $process_sync->deleteAllMetaFields($records);
+        $process_sync->deleteAllMetaFields($records);
 
-//        $process_sync->deleteAllMetaFields($records, 'product_tile_color');
+        $process_sync->deleteAllMetaFields($records, 'product_tile_color');
         
         foreach ($records as $record) {
             if(!empty($record['Product ID'])){
                 $data['record'] = $record;
-//                $process_sync = new ProcessSync();
-//                $process_sync->addSingleProductSwatchHook($data);
-//                do_action('run_single_product_hook', $data);
+                $process_sync = new ProcessSync();
+                $process_sync->addSingleProductSwatchHook($data);
+//                do_action('get_all_product_swatch_process_hook', $data);
                 die();
             }
         }

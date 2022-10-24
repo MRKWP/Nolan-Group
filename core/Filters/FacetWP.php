@@ -61,7 +61,6 @@ class FacetWP
                 ),
             );
             $query->set( 'tax_query', $taxonomy_query );
-            var_dump($query->get('paged'));
         }
     }
     

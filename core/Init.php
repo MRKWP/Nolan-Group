@@ -28,7 +28,6 @@ final class Init
             Filters\Products::class,
 			Filters\CategorySideBar::class,
 			Filters\FacetWP::class,
-			Filters\Swatches::class,
 
             Actions\PostTypes::class,
             Actions\ProductTaxonomies::class,

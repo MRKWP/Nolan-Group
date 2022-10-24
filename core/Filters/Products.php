@@ -102,6 +102,7 @@ class Products
         if ( ! is_admin() && is_tax('product-category') ) {
             $query->set( 'orderby', 'title' );
             $query->set( 'order', 'ASC' );
+            var_dump($query);
         }
         
         return $query;

@@ -24,7 +24,7 @@ class PostTypes
      * @param $query
      */
     public function sort_post_types_alphabetically( $query ) {
-        $sorted_post_types = apply_filters('nolan_group_sort_query_alphabetically', ['brand', 'nolan-product']);
+        $sorted_post_types = apply_filters('nolan_group_sort_query_alphabetically', ['brand', 'nolan-product', 'guide']);
     
         if( $query->is_main_query() && !empty($query->query['post_type']) && in_array($query->query['post_type'], $sorted_post_types) ) {
             $query->set( 'order', 'ASC' );

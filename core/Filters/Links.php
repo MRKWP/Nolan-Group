@@ -12,7 +12,7 @@ class Links
 {
 	public function register() {
 		add_filter( 'post_type_link', [ $this, 'change_brochure_permalink_to_pdf' ], 8, 2 );
-        add_filter( 'post_type_link', [ $this, 'change_guide_permalink_to_pdf' ], 8, 2 );
+        	add_filter( 'post_type_link', [ $this, 'change_guide_permalink_to_pdf' ], 8, 2 );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Links
             if ( empty($files['0']['url'])){
 				$files = $this->get_missing_file($post->ID);
 				if(!empty($files[0]->meta_value)){
-					return $upload_dir['basedir'].'/'.$files[0]->meta_value;
+					return $upload_dir['basedir'].'/wp-content/uploads/'.$files[0]->meta_value;
 				}else{
 					return;	
 				}
